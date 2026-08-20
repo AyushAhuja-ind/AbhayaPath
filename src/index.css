@@ -76,9 +76,15 @@ body {
   0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
   50%       { box-shadow: 0 0 0 12px rgba(245,158,11,0); }
 }
-  /* Force all SVG icons to scale properly and avoid screen overflow */
+
+/* Keeps every SVG inside its parent container without overflowing */
 svg {
-  max-width: 100%;
+  max-width: 100% !important;
   height: auto;
 }
 
+/* Automatically sizes header, nav, and button icons */
+header svg, nav svg, button svg {
+  max-width: 24px !important;
+  max-height: 24px !important;
+}
