@@ -59,9 +59,22 @@ function StatusBar() {
   return (
     <div className="flex justify-between items-center px-5 pt-3 pb-1 text-white/60 text-xs">
       <span style={{ fontFamily: "Poppins, sans-serif" }}>9:41</span>
-      <div className="flex gap-1 items-center">
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.56 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><rect x="1" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" /><path d="M23 13v-2a2 2 0 0 1 0 4" stroke="currentColor" strokeWidth="1.5" fill="none" /><rect x="3" y="8" width="12" height="8" rx="1" fill="currentColor" opacity="0.6" /></svg>
+      <div className="flex gap-1.5 items-center">
+        {/* Signal Icon */}
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2 20h.01M7 20v-4M12 20v-8M17 20v-12M22 20V4" />
+        </svg>
+
+        {/* Wi-Fi Icon */}
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" />
+        </svg>
+
+        {/* Battery Icon */}
+        <svg className="w-4 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
+          <line x1="22" y1="11" x2="22" y2="13" />
+        </svg>
       </div>
     </div>
   );
