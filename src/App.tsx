@@ -173,7 +173,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   return (
     <div className="flex flex-col h-full bg-[#0a0f2e]">
       <StatusBar />
-      <div className="flex-1 flex flex-col px-6 pt-6 pb-8 overflow-y-auto">
+     <div className="flex-1 flex flex-col px-6 pt-6 pb-16 overflow-y-auto">
         <Logo size="md" />
 
         <div className="mt-5 mb-4">
