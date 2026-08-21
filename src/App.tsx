@@ -186,89 +186,93 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
           </p>
         </div>
 
-        {/* Feature pills - Lighter background (#1e295d) and visible border */}
-        <div className="flex flex-col gap-2 mb-6">
-          {[
-            { icon: "🚑", text: "Real-time ambulance corridor" },
-            { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
-            { icon: "⚡", text: "Instant e-challan for misuse" },
-            { icon: "🙋", text: "ONE USER ONE DEVICE" },
-          ].map(f => (
-            <div 
-              key={f.text} 
-              style={{ backgroundColor: "#1e295d", borderColor: "rgba(255, 255, 255, 0.15)" }} 
-              className="flex items-center gap-3 rounded-xl px-4 py-2.5 border"
-            >
-              <span className="text-base">{f.icon}</span>
-              <span style={{ color: "#ffffff" }} className="text-xs font-medium">{f.text}</span>
-            </div>
-          ))}
-        </div>
+       {/* Feature Cards - Each item in its own card box */}
+<div className="flex flex-col gap-2.5 mb-6">
+  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
+    <span className="text-base">🚑</span>
+    <span style={{ color: "#ffffff" }} className="text-xs font-medium">Real-time ambulance corridor</span>
+  </div>
 
-        {/* Tab switcher - Styled pill container */}
-        <div style={{ backgroundColor: "#1e295d", borderColor: "rgba(255, 255, 255, 0.15)" }} className="flex rounded-2xl p-1 mb-5 border">
-          {(["signup", "login"] as const).map(t => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all"
-              style={{
-                fontFamily: "Rajdhani, sans-serif",
-                letterSpacing: "0.04em",
-                backgroundColor: tab === t ? "#dc2626" : "transparent",
-                color: tab === t ? "#ffffff" : "#9ca3af",
-              }}
-            >
-              {t === "signup" ? "Sign Up" : "Login"}
-            </button>
-          ))}
-        </div>
+  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
+    <span className="text-base">🛡️</span>
+    <span style={{ color: "#ffffff" }} className="text-xs font-medium">AI emergency file verification with TLS MQTT encryption</span>
+  </div>
 
-        {tab === "signup" ? (
-          <div className="flex flex-col gap-3">
-            <p style={{ color: "#9ca3af" }} className="text-xs">Create your AbhayaPath account to get started.</p>
-            <button
-              onClick={onSignup}
-              style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
-              className="w-full py-3 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform"
-            >
-              Create New Account
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-1.5">
-              <label style={{ color: "#9ca3af" }} className="text-xs font-medium uppercase tracking-widest">Mobile Number</label>
-              <input
-                value={loginPhone}
-                onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                type="tel"
-                placeholder="10-digit mobile number"
-                style={{ backgroundColor: "#1e295d", color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.15)" }}
-                className="w-full border rounded-xl px-4 py-3 text-sm outline-none placeholder:text-white/30"
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label style={{ color: "#9ca3af" }} className="text-xs font-medium uppercase tracking-widest">Password</label>
-              <input
-                value={loginPass}
-                onChange={e => setLoginPass(e.target.value)}
-                type="password"
-                placeholder="Your password"
-                style={{ backgroundColor: "#1e295d", color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.15)" }}
-                className="w-full border rounded-xl px-4 py-3 text-sm outline-none placeholder:text-white/30"
-              />
-            </div>
-            <button
-              onClick={onLogin}
-              disabled={loginPhone.length < 10 || loginPass.length < 4}
-              style={{ backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626", color: "#ffffff" }}
-              className="w-full py-3 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform"
-            >
-              Login →
-            </button>
-          </div>
-        )}
+  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
+    <span className="text-base">⚡</span>
+    <span style={{ color: "#ffffff" }} className="text-xs font-medium">Instant e-challan for misuse</span>
+  </div>
+
+  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
+    <span className="text-base">🙋</span>
+    <span style={{ color: "#ffffff" }} className="text-xs font-medium">ONE USER ONE DEVICE</span>
+  </div>
+</div>
+
+{/* Tab Switcher - Properly isolated container */}
+<div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex rounded-xl p-1 mb-5">
+  <button
+    onClick={() => setTab("signup")}
+    className="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all"
+    style={{
+      backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
+      color: tab === "signup" ? "#ffffff" : "#9ca3af",
+    }}
+  >
+    Sign Up
+  </button>
+  <button
+    onClick={() => setTab("login")}
+    className="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all"
+    style={{
+      backgroundColor: tab === "login" ? "#dc2626" : "transparent",
+      color: tab === "login" ? "#ffffff" : "#9ca3af",
+    }}
+  >
+    Login
+  </button>
+</div>
+
+{/* Main Call To Action Button */}
+{tab === "signup" ? (
+  <div className="flex flex-col gap-3">
+    <p style={{ color: "#9ca3af" }} className="text-xs text-center">Create your AbhayaPath account to get started.</p>
+    <button
+      onClick={onSignup}
+      style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
+      className="w-full py-3.5 rounded-xl text-sm font-bold shadow-lg"
+    >
+      Create New Account
+    </button>
+  </div>
+) : (
+  /* Login form block */
+  <div className="flex flex-col gap-3">
+    <input
+      value={loginPhone}
+      onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+      type="tel"
+      placeholder="10-digit mobile number"
+      style={{ backgroundColor: "#1e295d", color: "#ffffff", border: "1px solid rgba(255,255,255,0.15)" }}
+      className="w-full rounded-xl px-4 py-3 text-sm outline-none"
+    />
+    <input
+      value={loginPass}
+      onChange={e => setLoginPass(e.target.value)}
+      type="password"
+      placeholder="Your password"
+      style={{ backgroundColor: "#1e295d", color: "#ffffff", border: "1px solid rgba(255,255,255,0.15)" }}
+      className="w-full rounded-xl px-4 py-3 text-sm outline-none"
+    />
+    <button
+      onClick={onLogin}
+      style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
+      className="w-full py-3.5 rounded-xl text-sm font-bold shadow-lg"
+    >
+      Login →
+    </button>
+  </div>
+)}
 
         <p style={{ color: "#9ca3af" }} className="text-center text-xs mt-6">
           Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)     
