@@ -186,96 +186,156 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
           </p>
         </div>
 
-       {/* Feature Cards - Each item in its own card box */}
-<div className="flex flex-col gap-2.5 mb-6">
-  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
-    <span className="text-base">🚑</span>
-    <span style={{ color: "#ffffff" }} className="text-xs font-medium">Real-time ambulance corridor</span>
-  </div>
+        {/* Feature Cards - Explicit inline spacing & separate backgrounds */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
+          <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "12px", padding: "10px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
+            <span style={{ fontSize: "16px" }}>🚑</span>
+            <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500 }}>Real-time ambulance corridor</span>
+          </div>
 
-  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
-    <span className="text-base">🛡️</span>
-    <span style={{ color: "#ffffff" }} className="text-xs font-medium">AI emergency file verification with TLS MQTT encryption</span>
-  </div>
+          <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "12px", padding: "10px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
+            <span style={{ fontSize: "16px" }}>🛡️</span>
+            <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500 }}>AI emergency file verification with TLS MQTT encryption</span>
+          </div>
 
-  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
-    <span className="text-base">⚡</span>
-    <span style={{ color: "#ffffff" }} className="text-xs font-medium">Instant e-challan for misuse</span>
-  </div>
+          <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "12px", padding: "10px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
+            <span style={{ fontSize: "16px" }}>⚡</span>
+            <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500 }}>Instant e-challan for misuse</span>
+          </div>
 
-  <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex items-center gap-3 rounded-xl px-4 py-3">
-    <span className="text-base">🙋</span>
-    <span style={{ color: "#ffffff" }} className="text-xs font-medium">ONE USER ONE DEVICE</span>
-  </div>
-</div>
+          <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "12px", padding: "10px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
+            <span style={{ fontSize: "16px" }}>🙋</span>
+            <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500 }}>ONE USER ONE DEVICE</span>
+          </div>
+        </div>
 
-{/* Tab Switcher - Properly isolated container */}
-<div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)" }} className="flex rounded-xl p-1 mb-5">
-  <button
-    onClick={() => setTab("signup")}
-    className="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all"
-    style={{
-      backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
-      color: tab === "signup" ? "#ffffff" : "#9ca3af",
-    }}
-  >
-    Sign Up
-  </button>
-  <button
-    onClick={() => setTab("login")}
-    className="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all"
-    style={{
-      backgroundColor: tab === "login" ? "#dc2626" : "transparent",
-      color: tab === "login" ? "#ffffff" : "#9ca3af",
-    }}
-  >
-    Login
-  </button>
-</div>
+        {/* Tab Switcher - Flex container with styled tab buttons */}
+        <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "12px", padding: "4px", display: "flex", marginBottom: "20px" }}>
+          <button
+            type="button"
+            onClick={() => setTab("signup")}
+            style={{
+              flex: 1,
+              padding: "10px 0",
+              borderRadius: "8px",
+              fontSize: "12px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
+              color: tab === "signup" ? "#ffffff" : "#9ca3af",
+              fontFamily: "Rajdhani, sans-serif",
+            }}
+          >
+            Sign Up
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("login")}
+            style={{
+              flex: 1,
+              padding: "10px 0",
+              borderRadius: "8px",
+              fontSize: "12px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: tab === "login" ? "#dc2626" : "transparent",
+              color: tab === "login" ? "#ffffff" : "#9ca3af",
+              fontFamily: "Rajdhani, sans-serif",
+            }}
+          >
+            Login
+          </button>
+        </div>
 
-{/* Main Call To Action Button */}
-{tab === "signup" ? (
-  <div className="flex flex-col gap-3">
-    <p style={{ color: "#9ca3af" }} className="text-xs text-center">Create your AbhayaPath account to get started.</p>
-    <button
-      onClick={onSignup}
-      style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
-      className="w-full py-3.5 rounded-xl text-sm font-bold shadow-lg"
-    >
-      Create New Account
-    </button>
-  </div>
-) : (
-  /* Login form block */
-  <div className="flex flex-col gap-3">
-    <input
-      value={loginPhone}
-      onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-      type="tel"
-      placeholder="10-digit mobile number"
-      style={{ backgroundColor: "#1e295d", color: "#ffffff", border: "1px solid rgba(255,255,255,0.15)" }}
-      className="w-full rounded-xl px-4 py-3 text-sm outline-none"
-    />
-    <input
-      value={loginPass}
-      onChange={e => setLoginPass(e.target.value)}
-      type="password"
-      placeholder="Your password"
-      style={{ backgroundColor: "#1e295d", color: "#ffffff", border: "1px solid rgba(255,255,255,0.15)" }}
-      className="w-full rounded-xl px-4 py-3 text-sm outline-none"
-    />
-    <button
-      onClick={onLogin}
-      style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
-      className="w-full py-3.5 rounded-xl text-sm font-bold shadow-lg"
-    >
-      Login →
-    </button>
-  </div>
-)}
+        {/* Dynamic Section: Signup or Login */}
+        {tab === "signup" ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <p style={{ color: "#9ca3af", fontSize: "12px", textAlign: "center", margin: 0 }}>Create your AbhayaPath account to get started.</p>
+            <button
+              type="button"
+              onClick={onSignup}
+              style={{
+                width: "100%",
+                backgroundColor: "#dc2626",
+                color: "#ffffff",
+                padding: "12px 0",
+                borderRadius: "12px",
+                fontSize: "14px",
+                fontWeight: 700,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              Create New Account
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Mobile Number</label>
+              <input
+                value={loginPhone}
+                onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                type="tel"
+                placeholder="10-digit mobile number"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#1e295d",
+                  color: "#ffffff",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  borderRadius: "12px",
+                  padding: "12px 16px",
+                  fontSize: "14px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Password</label>
+              <input
+                value={loginPass}
+                onChange={e => setLoginPass(e.target.value)}
+                type="password"
+                placeholder="Your password"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#1e295d",
+                  color: "#ffffff",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  borderRadius: "12px",
+                  padding: "12px 16px",
+                  fontSize: "14px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={onLogin}
+              disabled={loginPhone.length < 10 || loginPass.length < 4}
+              style={{
+                width: "100%",
+                backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626",
+                color: "#ffffff",
+                padding: "12px 0",
+                borderRadius: "12px",
+                fontSize: "14px",
+                fontWeight: 700,
+                border: "none",
+                cursor: loginPhone.length < 10 || loginPass.length < 4 ? "not-allowed" : "pointer",
+              }}
+            >
+              Login →
+            </button>
+          </div>
+        )}
 
-        <p style={{ color: "#9ca3af" }} className="text-center text-xs mt-6">
-          Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)     
+        <p style={{ color: "#9ca3af", fontSize: "11px", textAlign: "center", marginTop: "24px" }}>
+          Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA (TECH SIRENS)
         </p>
       </div>
     </div>
