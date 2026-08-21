@@ -175,19 +175,19 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
       <StatusBar />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
         
-        {/* Top Header Section */}
-        <div>
-          <Logo size="md" />
-
-          <div style={{ marginTop: "12px", marginBottom: "12px" }}>
-            <h1 style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.45rem", color: "#ffffff", fontWeight: 700, lineHeight: "1.2", margin: 0 }}>
-              Fearless Path for<br />
-              <span style={{ color: "#dc2626" }}>Smart India Health</span>
-            </h1>
-            <p style={{ color: "#f59e0b", fontSize: "11px", fontWeight: 600, marginTop: "4px", marginBottom: 0, letterSpacing: "0.02em" }}>
-              #Go With AbhayaPath
-            </p>
-          </div>
+       {/* Header / Logo Row */}
+<div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
+  <Logo size="md" />
+  <span style={{ 
+    fontFamily: "Rajdhani, sans-serif", 
+    fontSize: "1.5rem", 
+    fontWeight: 800, 
+    color: "#ffffff", 
+    letterSpacing: "0.5px" 
+  }}>
+    Abhaya<span style={{ color: "#dc2626" }}>path</span>
+  </span>
+</div>
 
          {/* Compact Feature Cards - Only visible in Sign Up tab */}
 {tab === "signup" && (
