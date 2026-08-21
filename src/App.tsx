@@ -175,20 +175,18 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
       <StatusBar />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
         
-       {/* Header / Logo Row */}
+       {/* Header / Custom Inline Logo Row */}
 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
-  <Logo size="md" />
-  <span style={{ 
-    fontFamily: "Rajdhani, sans-serif", 
-    fontSize: "1.5rem", 
-    fontWeight: 800, 
-    color: "#ffffff", 
-    letterSpacing: "0.5px" 
-  }}>
+  {/* Red Shield Icon Container */}
+  <div style={{ width: "36px", height: "36px", backgroundColor: "#dc2626", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 12px rgba(220, 38, 38, 0.5)" }}>
+    <span style={{ color: "#ffffff", fontSize: "18px" }}>🛡️</span>
+  </div>
+  
+  {/* Side-by-Side Brand Name */}
+  <span style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.5px" }}>
     Abhaya<span style={{ color: "#dc2626" }}>path</span>
   </span>
 </div>
-
          {/* Compact Feature Cards - Only visible in Sign Up tab */}
 {tab === "signup" && (
   <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
