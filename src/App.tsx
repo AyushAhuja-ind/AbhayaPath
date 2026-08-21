@@ -351,7 +351,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
         </p>
 
       </div>
-    </div>
+  
   );
 }
 function SignupScreen({ onBack, onNext, user, setUser }: {
