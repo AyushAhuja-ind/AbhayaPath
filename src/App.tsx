@@ -59,22 +59,9 @@ function StatusBar() {
   return (
     <div className="flex justify-between items-center px-5 pt-3 pb-1 text-white/60 text-xs">
       <span style={{ fontFamily: "Poppins, sans-serif" }}>9:41</span>
-      <div className="flex gap-1.5 items-center">
-        {/* Signal Icon */}
-        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M2 20h.01M7 20v-4M12 20v-8M17 20v-12M22 20V4" />
-        </svg>
-
-        {/* Wi-Fi Icon */}
-        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" />
-        </svg>
-
-        {/* Battery Icon */}
-        <svg className="w-4 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
-          <line x1="22" y1="11" x2="22" y2="13" />
-        </svg>
+      <div className="flex gap-1 items-center">
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.56 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><rect x="1" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" /><path d="M23 13v-2a2 2 0 0 1 0 4" stroke="currentColor" strokeWidth="1.5" fill="none" /><rect x="3" y="8" width="12" height="8" rx="1" fill="currentColor" opacity="0.6" /></svg>
       </div>
     </div>
   );
@@ -166,7 +153,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
         <div className="mt-5 mb-4">
           <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem" }}>
             Fearless Path for<br />
-            <span className="text-[#dc2626]">Smart India Health</span>
+            <span className="text-[#dc2626]">Go Home</span>
           </h1>
           <p className="text-[#f59e0b] text-xs font-semibold mt-1.5 tracking-wide">#Go With AbhayaPath</p>
         </div>
@@ -806,35 +793,69 @@ function ChallanScreen({ onBack }: { onBack: () => void }) {
   );
 }
 
-function VerifiedScreen({ onDone }: { onDone: () => void }) {
+function VerifiedScreen({ onDone, isAmbulance }: { onDone: () => void; isAmbulance: boolean }) {
   return (
     <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-8 pb-10 items-center justify-center gap-6">
-        <div className="w-24 h-24 rounded-full bg-[#16a34a]/20 border-2 border-[#16a34a]/50 flex items-center justify-center text-5xl">
-          ✅
+      {isAmbulance ? (
+        /* Ambulance thank-you screen — no AI verification */
+        <div className="flex flex-col flex-1 px-6 pb-10 items-center justify-center gap-7">
+          <div className="w-28 h-28 rounded-full bg-[#1e3a8a]/30 border-2 border-[#1e3a8a]/50 flex items-center justify-center text-6xl">
+            🚑
+          </div>
+          <div className="text-center flex flex-col gap-2">
+            <h2 className="text-white font-bold text-3xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+              Thank You!
+            </h2>
+            <p className="text-white/60 text-sm leading-relaxed px-4">
+              Thank you for using AbhayaPath services. Your journey has been recorded safely.
+            </p>
+            <p className="text-[#f59e0b] text-sm font-bold tracking-wide mt-1">#Go With AbhayaPath</p>
+          </div>
+          <div className="w-full bg-[#1f2937] border border-white/5 rounded-2xl p-5 flex flex-col gap-3">
+            {[
+              ["Journey ID", "APJ-AMB-" + Math.floor(Math.random() * 90000 + 10000)],
+              ["Status", "Completed"],
+              ["Service", "Ambulance Corridor"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex justify-between border-b border-white/5 pb-3 last:border-0 last:pb-0">
+                <span className="text-white/40 text-xs">{k}</span>
+                <span className="text-white text-xs font-medium">{v}</span>
+              </div>
+            ))}
+          </div>
+          <div className="w-full">
+            <PrimaryButton label="Start New Journey" onClick={onDone} variant="navy" />
+          </div>
         </div>
-        <div className="text-center">
-          <h2 className="text-white font-bold text-2xl mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>Journey Complete</h2>
-          <p className="text-white/50 text-sm leading-relaxed">Your emergency file has been verified by AI and accepted. Your journey record has been saved successfully.</p>
+      ) : (
+        /* Private vehicle — AI verified screen */
+        <div className="flex flex-col flex-1 px-6 pt-8 pb-10 items-center justify-center gap-6">
+          <div className="w-24 h-24 rounded-full bg-[#16a34a]/20 border-2 border-[#16a34a]/50 flex items-center justify-center text-5xl">
+            ✅
+          </div>
+          <div className="text-center">
+            <h2 className="text-white font-bold text-2xl mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>Journey Complete</h2>
+            <p className="text-white/50 text-sm leading-relaxed">Your emergency file has been verified by AI and accepted. Your journey record has been saved successfully.</p>
+          </div>
+          <div className="w-full bg-[#16a34a]/10 border border-[#16a34a]/30 rounded-2xl p-5">
+            {[
+              ["Journey ID", "APJ-" + Math.floor(Math.random() * 900000 + 100000)],
+              ["Status", "Verified ✓"],
+              ["File Authenticity", "Genuine (AI Confirmed)"],
+              ["Compliance", "Fully Compliant"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex justify-between py-2 border-b border-white/5 last:border-0">
+                <span className="text-white/40 text-xs">{k}</span>
+                <span className="text-white text-xs font-medium">{v}</span>
+              </div>
+            ))}
+          </div>
+          <div className="w-full mt-4">
+            <PrimaryButton label="Start New Journey" onClick={onDone} variant="red" />
+          </div>
         </div>
-        <div className="w-full bg-[#16a34a]/10 border border-[#16a34a]/30 rounded-2xl p-5">
-          {[
-            ["Journey ID", "APJ-" + Math.floor(Math.random() * 900000 + 100000)],
-            ["Status", "Verified ✓"],
-            ["File Authenticity", "Genuine (AI Confirmed)"],
-            ["Compliance", "Fully Compliant"],
-          ].map(([k, v]) => (
-            <div key={k} className="flex justify-between py-2 border-b border-white/5 last:border-0">
-              <span className="text-white/40 text-xs">{k}</span>
-              <span className="text-white text-xs font-medium">{v}</span>
-            </div>
-          ))}
-        </div>
-        <div className="w-full mt-4">
-          <PrimaryButton label="Start New Journey" onClick={onDone} variant="red" />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -1093,7 +1114,7 @@ export default function App() {
       case "challan":
         return <ChallanScreen onBack={() => { setUser(u => ({ ...u, origin: "", destination: "" })); go("map"); }} />;
       case "verified":
-        return <VerifiedScreen onDone={() => { setUser(u => ({ ...u, origin: "", destination: "" })); go("map"); }} />;
+        return <VerifiedScreen onDone={() => { setUser(u => ({ ...u, origin: "", destination: "" })); go("map"); }} isAmbulance={isAmbulance} />;
       default:
         return null;
     }
@@ -1123,3 +1144,4 @@ export default function App() {
     </div>
   );
 }
+
