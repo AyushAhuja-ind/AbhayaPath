@@ -171,11 +171,10 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e]">
+    div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
-     <div className="flex-1 flex flex-col px-6 pt-6 pb-16 overflow-y-auto">
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "24px 24px 48px 24px", overflowY: "auto" }}>
         <Logo size="md" />
-
         <div className="mt-5 mb-4">
           <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", color: "#ffffff" }}>
             Fearless Path for<br />
