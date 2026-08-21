@@ -1071,7 +1071,6 @@ export default function App() {
     go("welcome");
   };
 
-
   const renderScreen = () => {
     switch (screen) {
       case "splash":
@@ -1147,25 +1146,26 @@ export default function App() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      {/* Android phone frame */}
+    <div style={{ backgroundColor: '#000000', color: '#ffffff' }} className="flex items-center justify-center min-h-screen w-full bg-black p-0 sm:p-4 select-none">
+      {/* Responsive Phone Frame */}
       <div
-        className="relative bg-[#0a0f2e] overflow-hidden flex flex-col"
+        className="relative bg-[#0a0f2e] text-white overflow-hidden flex flex-col w-full sm:max-w-[390px] h-screen sm:h-[844px] sm:max-h-[90vh] rounded-none sm:rounded-[44px] border-0 sm:border-4 border-slate-800 shadow-2xl"
         style={{
-          width: "390px",
-          height: "844px",
-          borderRadius: "44px",
+          backgroundColor: "#0a0f2e",
+          color: "#ffffff",
           boxShadow: "0 0 0 2px #1f2937, 0 0 0 4px #0d1545, 0 40px 80px rgba(0,0,0,0.9)",
         }}
       >
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-b-2xl z-50" />
-        <div className="flex flex-col h-full pt-2">
+        {/* Notch - hidden on mobile screens, visible in desktop frame */}
+        <div className="hidden sm:block absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-50 pointer-events-none" />
+
+        {/* Screen Viewport with internal scrolling */}
+        <div className="flex flex-col h-full w-full pt-4 pb-6 overflow-y-auto overflow-x-hidden relative z-10">
           {renderScreen()}
         </div>
-        {/* No bottom nav after login — profile accessed via map header icon */}
-        {/* Home indicator */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-white/20 rounded-full z-50" />
+
+        {/* Home Indicator Bar */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-white/30 rounded-full z-50 pointer-events-none" />
       </div>
     </div>
   );
