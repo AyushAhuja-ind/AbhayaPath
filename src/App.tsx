@@ -164,7 +164,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
         <div className="mt-5 mb-4">
           <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem" }}>
             Fearless Path for<br />
-            <span className="text-[#dc2626]">Go Home</span>
+            <span className="text-[#dc2626]">Smart India Health</span>
           </h1>
           <p className="text-[#f59e0b] text-xs font-semibold mt-1.5 tracking-wide">#Go With AbhayaPath</p>
         </div>
