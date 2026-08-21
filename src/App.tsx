@@ -363,7 +363,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
       </p>
 
     </div>
-  </div>
+  
 );
 function SignupScreen({ onBack, onNext, user, setUser }: {
   onBack: () => void; onNext: () => void; user: UserData; setUser: (u: UserData) => void;
