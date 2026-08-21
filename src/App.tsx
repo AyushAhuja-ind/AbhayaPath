@@ -36,20 +36,35 @@ const VEHICLE_DB: Record<string, { owner: string; model: string; registered: str
 };
 
 function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
-  const sizes = { sm: "text-xl", md: "text-3xl", lg: "text-5xl" };
-  const iconSizes = { sm: "w-7 h-7", md: "w-10 h-10", lg: "w-16 h-16" };
+  const sizes = { sm: "text-xl", md: "text-2xl", lg: "text-4xl" };
+  const iconSizes = { sm: "w-7 h-7 min-w-[28px]", md: "w-10 h-10 min-w-[40px]", lg: "w-14 h-14 min-w-[56px]" };
+  const pixelSizes = { sm: { width: '28px', height: '28px' }, md: { width: '40px', height: '40px' }, lg: { width: '56px', height: '56px' } };
+
   return (
-    <div className="flex items-center gap-2">
-      <div className={`${iconSizes[size]} rounded-xl bg-[#dc2626] flex items-center justify-center shadow-lg`} style={{ boxShadow: "0 0 20px rgba(220,38,38,0.4)" }}>
-        <svg viewBox="0 0 32 32" fill="none" className="w-3/4 h-3/4">
+    <div className="flex items-center gap-2.5 my-2">
+      {/* Red Icon Container with strict dimensions */}
+      <div 
+        className={`${iconSizes[size]} rounded-xl bg-[#dc2626] flex items-center justify-center shrink-0`} 
+        style={{ 
+          ...pixelSizes[size], 
+          boxShadow: "0 0 20px rgba(220,38,38,0.4)" 
+        }}
+      >
+        <svg 
+          viewBox="0 0 32 32" 
+          fill="none" 
+          style={{ width: '65%', height: '65%', maxWidth: '100%', maxHeight: '100%' }}
+        >
           <path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4z" fill="rgba(255,255,255,0.15)" />
           <path d="M16 8v10M16 18l-4-4M16 18l4-4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="16" cy="22" r="1.5" fill="white" />
         </svg>
       </div>
+
+      {/* Brand Name Text */}
       <div className={`font-bold tracking-wide ${sizes[size]}`} style={{ fontFamily: "Rajdhani, sans-serif" }}>
-        <span className="text-white">Abhaya</span>
-        <span className="text-[#dc2626]" style={{ fontFamily: "Noto Sans Devanagari, sans-serif", fontWeight: 700 }}>पथ</span>
+        <span style={{ color: '#ffffff' }}>Abhaya</span>
+        <span style={{ color: '#dc2626', fontFamily: "Noto Sans Devanagari, sans-serif", fontWeight: 700 }}>पथ</span>
       </div>
     </div>
   );
