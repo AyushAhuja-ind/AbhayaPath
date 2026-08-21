@@ -186,7 +186,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
           </p>
         </div>
 
-        {/* Feature pills */}
+        {/* Feature pills - Lighter background (#1e295d) and visible border */}
         <div className="flex flex-col gap-2 mb-6">
           {[
             { icon: "🚑", text: "Real-time ambulance corridor" },
@@ -196,8 +196,8 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
           ].map(f => (
             <div 
               key={f.text} 
-              style={{ backgroundColor: "#131d5c" }} 
-              className="flex items-center gap-3 rounded-xl px-4 py-2.5 border border-white/10"
+              style={{ backgroundColor: "#1e295d", borderColor: "rgba(255, 255, 255, 0.15)" }} 
+              className="flex items-center gap-3 rounded-xl px-4 py-2.5 border"
             >
               <span className="text-base">{f.icon}</span>
               <span style={{ color: "#ffffff" }} className="text-xs font-medium">{f.text}</span>
@@ -205,8 +205,8 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
           ))}
         </div>
 
-        {/* Tab switcher */}
-        <div style={{ backgroundColor: "#131d5c" }} className="flex rounded-2xl p-1 mb-5 border border-white/10">
+        {/* Tab switcher - Styled pill container */}
+        <div style={{ backgroundColor: "#1e295d", borderColor: "rgba(255, 255, 255, 0.15)" }} className="flex rounded-2xl p-1 mb-5 border">
           {(["signup", "login"] as const).map(t => (
             <button
               key={t}
@@ -217,7 +217,6 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
                 letterSpacing: "0.04em",
                 backgroundColor: tab === t ? "#dc2626" : "transparent",
                 color: tab === t ? "#ffffff" : "#9ca3af",
-                boxShadow: tab === t ? "0 10px 15px -3px rgba(0, 0, 0, 0.3)" : "none"
               }}
             >
               {t === "signup" ? "Sign Up" : "Login"}
@@ -228,7 +227,13 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
         {tab === "signup" ? (
           <div className="flex flex-col gap-3">
             <p style={{ color: "#9ca3af" }} className="text-xs">Create your AbhayaPath account to get started.</p>
-            <PrimaryButton label="Create New Account" onClick={onSignup} />
+            <button
+              onClick={onSignup}
+              style={{ backgroundColor: "#dc2626", color: "#ffffff" }}
+              className="w-full py-3 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform"
+            >
+              Create New Account
+            </button>
           </div>
         ) : (
           <div className="flex flex-col gap-3">
@@ -239,8 +244,8 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
                 onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                 type="tel"
                 placeholder="10-digit mobile number"
-                style={{ backgroundColor: "#131d5c", color: "#ffffff" }}
-                className="w-full border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
+                style={{ backgroundColor: "#1e295d", color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.15)" }}
+                className="w-full border rounded-xl px-4 py-3 text-sm outline-none placeholder:text-white/30"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -250,11 +255,18 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
                 onChange={e => setLoginPass(e.target.value)}
                 type="password"
                 placeholder="Your password"
-                style={{ backgroundColor: "#131d5c", color: "#ffffff" }}
-                className="w-full border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
+                style={{ backgroundColor: "#1e295d", color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.15)" }}
+                className="w-full border rounded-xl px-4 py-3 text-sm outline-none placeholder:text-white/30"
               />
             </div>
-            <PrimaryButton label="Login →" onClick={onLogin} disabled={loginPhone.length < 10 || loginPass.length < 4} />
+            <button
+              onClick={onLogin}
+              disabled={loginPhone.length < 10 || loginPass.length < 4}
+              style={{ backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626", color: "#ffffff" }}
+              className="w-full py-3 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform"
+            >
+              Login →
+            </button>
           </div>
         )}
 
