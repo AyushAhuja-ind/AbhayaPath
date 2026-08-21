@@ -171,187 +171,200 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden" }}>
-      <StatusBar />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
-        
-       {/* Header / Custom Inline Logo Row */}
-<div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
-  {/* Red Shield Icon Container */}
-  <div style={{ width: "36px", height: "36px", backgroundColor: "#dc2626", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 12px rgba(220, 38, 38, 0.5)" }}>
-    <span style={{ color: "#ffffff", fontSize: "18px" }}>🛡️</span>
-  </div>
-  
-  {/* Side-by-Side Brand Name */}
-  <span style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.5px" }}>
-    Abhaya<span style={{ color: "#dc2626" }}>path</span>
-  </span>
-</div>
-         {/* Compact Feature Cards - Only visible in Sign Up tab */}
-{tab === "signup" && (
-  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
-    {[
-      { icon: "🚑", text: "Real-time ambulance corridor" },
-      { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
-      { icon: "⚡", text: "Instant e-challan for misuse" },
-      { icon: "🙋", text: "ONE USER ONE DEVICE" },
-    ].map(f => (
-      <div 
-        key={f.text} 
-        style={{ 
-          backgroundColor: "#1e295d", 
-          border: "1px solid rgba(255, 255, 255, 0.12)", 
-          borderRadius: "10px", 
-          padding: "8px 12px", 
-          display: "flex", 
-          alignItems: "center", 
-          gap: "10px" 
-        }}
-      >
-        <span style={{ fontSize: "14px" }}>{f.icon}</span>
-        <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500, lineHeight: "1.2" }}>{f.text}</span>
-      </div>
-    ))}
-  </div>
-)}
-
-{/* Tab Switcher */}
-<div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "10px", padding: "3px", display: "flex", marginBottom: "12px", marginTop: tab === "login" ? "12px" : "0" }}>
-  <button
-    type="button"
-    onClick={() => setTab("signup")}
-    style={{
-      flex: 1,
-      padding: "8px 0",
-      borderRadius: "7px",
-      fontSize: "12px",
-      fontWeight: 700,
-      border: "none",
-      cursor: "pointer",
-      backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
-      color: tab === "signup" ? "#ffffff" : "#9ca3af",
-      fontFamily: "Rajdhani, sans-serif",
-    }}
-  >
-    Sign Up
-  </button>
-  <button
-    type="button"
-    onClick={() => setTab("login")}
-    style={{
-      flex: 1,
-      padding: "8px 0",
-      borderRadius: "7px",
-      fontSize: "12px",
-      fontWeight: 700,
-      border: "none",
-      cursor: "pointer",
-      backgroundColor: tab === "login" ? "#dc2626" : "transparent",
-      color: tab === "login" ? "#ffffff" : "#9ca3af",
-      fontFamily: "Rajdhani, sans-serif",
-    }}
-  >
-    Login
-  </button>
-</div>
-
-{/* Dynamic Form Area */}
-{tab === "signup" ? (
-  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-    <p style={{ color: "#9ca3af", fontSize: "11px", textAlign: "center", margin: 0 }}>Create your AbhayaPath account to get started.</p>
-    <button
-      type="button"
-      onClick={onSignup}
-      style={{
-        width: "100%",
-        backgroundColor: "#dc2626",
-        color: "#ffffff",
-        padding: "11px 0",
-        borderRadius: "10px",
-        fontSize: "13px",
-        fontWeight: 700,
-        border: "none",
-        cursor: "pointer",
-        boxShadow: "0 4px 14px rgba(220, 38, 38, 0.3)"
-      }}
-    >
-      Create New Account
-    </button>
-  </div>
-) : (
-  <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-      <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Mobile Number</label>
-      <input
-        value={loginPhone}
-        onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-        type="tel"
-        placeholder="10-digit mobile number"
-        style={{
-          width: "100%",
-          backgroundColor: "#1e295d",
-          color: "#ffffff",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          borderRadius: "10px",
-          padding: "8px 12px",
-          fontSize: "12px",
-          outline: "none",
-          boxSizing: "border-box",
-        }}
-      />
-    </div>
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-      <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Password</label>
-      <input
-        value={loginPass}
-        onChange={e => setLoginPass(e.target.value)}
-        type="password"
-        placeholder="Your password"
-        style={{
-          width: "100%",
-          backgroundColor: "#1e295d",
-          color: "#ffffff",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          borderRadius: "10px",
-          padding: "8px 12px",
-          fontSize: "12px",
-          outline: "none",
-          boxSizing: "border-box",
-        }}
-      />
-    </div>
-    <button
-      type="button"
-      onClick={onLogin}
-      disabled={loginPhone.length < 10 || loginPass.length < 4}
-      style={{
-        width: "100%",
-        backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626",
-        color: "#ffffff",
-        padding: "10px 0",
-        borderRadius: "10px",
-        fontSize: "13px",
-        fontWeight: 700,
-        border: "none",
-        cursor: loginPhone.length < 10 || loginPass.length < 4 ? "not-allowed" : "pointer",
-        marginTop: "4px"
-      }}
-    >
-      Login →
-    </button>
-  </div>
-          )}
+  <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden" }}>
+    <StatusBar />
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
+      
+      {/* Top Section Content Wrapper */}
+      <div>
+        {/* Header / Custom Inline Logo Row */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
+          {/* Red Shield Icon Container */}
+          <div style={{ width: "36px", height: "36px", backgroundColor: "#dc2626", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 12px rgba(220, 38, 38, 0.5)" }}>
+            <span style={{ color: "#ffffff", fontSize: "18px" }}>🛡️</span>
+          </div>
+          
+          {/* Side-by-Side Brand Name */}
+          <span style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.5px" }}>
+            Abhaya<span style={{ color: "#dc2626" }}>path</span>
+          </span>
         </div>
 
-        {/* Footer Text */}
-        <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px", textAlign: "center", margin: "12px 0 0 0", lineHeight: "1.3" }}>
-          Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)
-        </p>
+        {/* Heading Section */}
+        <div style={{ marginTop: "12px", marginBottom: "12px" }}>
+          <h1 style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.45rem", color: "#ffffff", fontWeight: 700, lineHeight: "1.2", margin: 0 }}>
+            Fearless Path for<br />
+            <span style={{ color: "#dc2626" }}>Smart India Health</span>
+          </h1>
+          <p style={{ color: "#f59e0b", fontSize: "11px", fontWeight: 600, marginTop: "4px", marginBottom: 0, letterSpacing: "0.02em" }}>
+            #Go With AbhayaPath
+          </p>
+        </div>
 
+        {/* Compact Feature Cards - Only visible in Sign Up tab */}
+        {tab === "signup" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
+            {[
+              { icon: "🚑", text: "Real-time ambulance corridor" },
+              { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
+              { icon: "⚡", text: "Instant e-challan for misuse" },
+              { icon: "🙋", text: "ONE USER ONE DEVICE" },
+            ].map(f => (
+              <div 
+                key={f.text} 
+                style={{ 
+                  backgroundColor: "#1e295d", 
+                  border: "1px solid rgba(255, 255, 255, 0.12)", 
+                  borderRadius: "10px", 
+                  padding: "8px 12px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "10px" 
+                }}
+              >
+                <span style={{ fontSize: "14px" }}>{f.icon}</span>
+                <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500, lineHeight: "1.2" }}>{f.text}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Tab Switcher */}
+        <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "10px", padding: "3px", display: "flex", marginBottom: "12px", marginTop: tab === "login" ? "12px" : "0" }}>
+          <button
+            type="button"
+            onClick={() => setTab("signup")}
+            style={{
+              flex: 1,
+              padding: "8px 0",
+              borderRadius: "7px",
+              fontSize: "12px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
+              color: tab === "signup" ? "#ffffff" : "#9ca3af",
+              fontFamily: "Rajdhani, sans-serif",
+            }}
+          >
+            Sign Up
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("login")}
+            style={{
+              flex: 1,
+              padding: "8px 0",
+              borderRadius: "7px",
+              fontSize: "12px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: tab === "login" ? "#dc2626" : "transparent",
+              color: tab === "login" ? "#ffffff" : "#9ca3af",
+              fontFamily: "Rajdhani, sans-serif",
+            }}
+          >
+            Login
+          </button>
+        </div>
+
+        {/* Dynamic Form Area */}
+        {tab === "signup" ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <p style={{ color: "#9ca3af", fontSize: "11px", textAlign: "center", margin: 0 }}>Create your AbhayaPath account to get started.</p>
+            <button
+              type="button"
+              onClick={onSignup}
+              style={{
+                width: "100%",
+                backgroundColor: "#dc2626",
+                color: "#ffffff",
+                padding: "11px 0",
+                borderRadius: "10px",
+                fontSize: "13px",
+                fontWeight: 700,
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(220, 38, 38, 0.3)"
+              }}
+            >
+              Create New Account
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Mobile Number</label>
+              <input
+                value={loginPhone}
+                onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                type="tel"
+                placeholder="10-digit mobile number"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#1e295d",
+                  color: "#ffffff",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  borderRadius: "10px",
+                  padding: "8px 12px",
+                  fontSize: "12px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Password</label>
+              <input
+                value={loginPass}
+                onChange={e => setLoginPass(e.target.value)}
+                type="password"
+                placeholder="Your password"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#1e295d",
+                  color: "#ffffff",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  borderRadius: "10px",
+                  padding: "8px 12px",
+                  fontSize: "12px",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={onLogin}
+              disabled={loginPhone.length < 10 || loginPass.length < 4}
+              style={{
+                width: "100%",
+                backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626",
+                color: "#ffffff",
+                padding: "10px 0",
+                borderRadius: "10px",
+                fontSize: "13px",
+                fontWeight: 700,
+                border: "none",
+                cursor: loginPhone.length < 10 || loginPass.length < 4 ? "not-allowed" : "pointer",
+                marginTop: "4px"
+              }}
+            >
+              Login →
+            </button>
+          </div>
+        )}
       </div>
-  
-  );
-}
+
+      {/* Footer Text */}
+      <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px", textAlign: "center", margin: "12px 0 0 0", lineHeight: "1.3" }}>
+        Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)
+      </p>
+
+    </div>
+  </div>
+);
 function SignupScreen({ onBack, onNext, user, setUser }: {
   onBack: () => void; onNext: () => void; user: UserData; setUser: (u: UserData) => void;
 }) {
