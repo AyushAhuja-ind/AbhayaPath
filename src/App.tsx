@@ -171,7 +171,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-    div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "24px 24px 48px 24px", overflowY: "auto" }}>
         <Logo size="md" />
