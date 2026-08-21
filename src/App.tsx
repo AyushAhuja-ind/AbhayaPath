@@ -171,17 +171,19 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e]">
-      <StatusBar />
-      <div className="flex-1 flex flex-col px-6 pt-6 pb-8 overflow-y-auto">
-        <Logo size="md" />
+  <div className="flex flex-col h-full bg-[#0a0f2e]">
+    <StatusBar />
+    <div className="flex-1 flex flex-col px-6 pt-6 pb-8 overflow-y-auto">
+      <Logo size="md" />
 
-        <div className="mt-5 mb-4">
-          <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem" }}>
-            Fearless Path for<br />
-            <span className="text-[#dc2626]">Smart India Health</span>
-          </h1>
-          <p className="text-[#f59e0b] text-xs font-semibold mt-1.5 tracking-wide">#Go With AbhayaPath</p>
+      <div className="mt-5 mb-4">
+        <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", color: "#ffffff" }}>
+          Fearless Path for<br />
+          <span style={{ color: "#dc2626" }}>Smart India Health</span>
+        </h1>
+        <p className="text-xs font-semibold mt-1.5 tracking-wide" style={{ color: "#f59e0b" }}>
+          #Go With AbhayaPath
+        </p>
         </div>
 
         {/* Feature pills */}
