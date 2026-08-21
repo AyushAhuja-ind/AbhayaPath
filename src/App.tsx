@@ -171,19 +171,19 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-  <div className="flex flex-col h-full bg-[#0a0f2e]">
-    <StatusBar />
-    <div className="flex-1 flex flex-col px-6 pt-6 pb-8 overflow-y-auto">
-      <Logo size="md" />
+    <div className="flex flex-col h-full bg-[#0a0f2e]">
+      <StatusBar />
+      <div className="flex-1 flex flex-col px-6 pt-6 pb-8 overflow-y-auto">
+        <Logo size="md" />
 
-      <div className="mt-5 mb-4">
-        <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", color: "#ffffff" }}>
-          Fearless Path for<br />
-          <span style={{ color: "#dc2626" }}>Smart India Health</span>
-        </h1>
-        <p className="text-xs font-semibold mt-1.5 tracking-wide" style={{ color: "#f59e0b" }}>
-          #Go With AbhayaPath
-        </p>
+        <div className="mt-5 mb-4">
+          <h1 className="text-white font-bold leading-tight" style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", color: "#ffffff" }}>
+            Fearless Path for<br />
+            <span style={{ color: "#dc2626" }}>Smart India Health</span>
+          </h1>
+          <p className="text-xs font-semibold mt-1.5 tracking-wide" style={{ color: "#f59e0b" }}>
+            #Go With AbhayaPath
+          </p>
         </div>
 
         {/* Feature pills */}
@@ -192,24 +192,33 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
             { icon: "🚑", text: "Real-time ambulance corridor" },
             { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
             { icon: "⚡", text: "Instant e-challan for misuse" },
-      { icon: "🙋", text: "ONE USER ONE DEVICE" },
-      
+            { icon: "🙋", text: "ONE USER ONE DEVICE" },
           ].map(f => (
-            <div key={f.text} className="flex items-center gap-3 bg-[#1f2937] rounded-xl px-4 py-2.5 border border-white/5">
+            <div 
+              key={f.text} 
+              style={{ backgroundColor: "#131d5c" }} 
+              className="flex items-center gap-3 rounded-xl px-4 py-2.5 border border-white/10"
+            >
               <span className="text-base">{f.icon}</span>
-              <span className="text-white/70 text-xs">{f.text}</span>
+              <span style={{ color: "#ffffff" }} className="text-xs font-medium">{f.text}</span>
             </div>
           ))}
         </div>
 
         {/* Tab switcher */}
-        <div className="flex bg-[#1f2937] rounded-2xl p-1 mb-5">
+        <div style={{ backgroundColor: "#131d5c" }} className="flex rounded-2xl p-1 mb-5 border border-white/10">
           {(["signup", "login"] as const).map(t => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === t ? "bg-[#dc2626] text-white shadow-lg" : "text-white/40 hover:text-white/70"}`}
-              style={{ fontFamily: "Rajdhani, sans-serif", letterSpacing: "0.04em" }}
+              className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all"
+              style={{
+                fontFamily: "Rajdhani, sans-serif",
+                letterSpacing: "0.04em",
+                backgroundColor: tab === t ? "#dc2626" : "transparent",
+                color: tab === t ? "#ffffff" : "#9ca3af",
+                boxShadow: tab === t ? "0 10px 15px -3px rgba(0, 0, 0, 0.3)" : "none"
+              }}
             >
               {t === "signup" ? "Sign Up" : "Login"}
             </button>
@@ -218,43 +227,44 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
 
         {tab === "signup" ? (
           <div className="flex flex-col gap-3">
-            <p className="text-white/40 text-xs">Create your AbhayaPath account to get started.</p>
+            <p style={{ color: "#9ca3af" }} className="text-xs">Create your AbhayaPath account to get started.</p>
             <PrimaryButton label="Create New Account" onClick={onSignup} />
           </div>
         ) : (
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-white/50 uppercase tracking-widest">Mobile Number</label>
+              <label style={{ color: "#9ca3af" }} className="text-xs font-medium uppercase tracking-widest">Mobile Number</label>
               <input
                 value={loginPhone}
                 onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                 type="tel"
                 placeholder="10-digit mobile number"
-                className="w-full bg-[#1f2937] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
+                style={{ backgroundColor: "#131d5c", color: "#ffffff" }}
+                className="w-full border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-white/50 uppercase tracking-widest">Password</label>
+              <label style={{ color: "#9ca3af" }} className="text-xs font-medium uppercase tracking-widest">Password</label>
               <input
                 value={loginPass}
                 onChange={e => setLoginPass(e.target.value)}
                 type="password"
                 placeholder="Your password"
-                className="w-full bg-[#1f2937] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
+                style={{ backgroundColor: "#131d5c", color: "#ffffff" }}
+                className="w-full border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30"
               />
             </div>
             <PrimaryButton label="Login →" onClick={onLogin} disabled={loginPhone.length < 10 || loginPass.length < 4} />
           </div>
         )}
 
-        <p className="text-center text-white/25 text-xs mt-6">
+        <p style={{ color: "#9ca3af" }} className="text-center text-xs mt-6">
           Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)     
         </p>
       </div>
     </div>
   );
 }
-
 function SignupScreen({ onBack, onNext, user, setUser }: {
   onBack: () => void; onNext: () => void; user: UserData; setUser: (u: UserData) => void;
 }) {
