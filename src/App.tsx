@@ -1345,6 +1345,13 @@ export default function App() {
     origin: "", destination: "",
   });
 
+  return (
+    {/* ADD max-w-md mx-auto w-full to this main outer div */}
+    <div className="max-w-md mx-auto w-full min-h-screen bg-slate-950 text-white relative shadow-2xl overflow-hidden">
+      {/* All your screens and components go here */}
+    </div>
+  );
+}
   const go = (s: Screen) => setScreen(s);
 
   const isAmbulance = user.category === "ambulance";
