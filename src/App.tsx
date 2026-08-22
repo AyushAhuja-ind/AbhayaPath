@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 type Screen =
   | "splash"
   | "welcome"
@@ -36,17 +37,21 @@ const VEHICLE_DB: Record<string, { owner: string; model: string; registered: str
 };
 
 function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
-  const sizes = { sm: "text-xl", md: "text-2xl", lg: "text-4xl" };
-  const iconSizes = { sm: "w-7 h-7 min-w-[28px]", md: "w-10 h-10 min-w-[40px]", lg: "w-14 h-14 min-w-[56px]" };
+  const fontSizes = { sm: "20px", md: "24px", lg: "36px" };
   const pixelSizes = { sm: { width: '28px', height: '28px' }, md: { width: '40px', height: '40px' }, lg: { width: '56px', height: '56px' } };
 
   return (
-    <div className="flex items-center gap-2.5 my-2">
-      {/* Red Icon Container with strict dimensions */}
+    <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "8px 0", boxSizing: "border-box" }}>
+      {/* Red Icon Container */}
       <div 
-        className={`${iconSizes[size]} rounded-xl bg-[#dc2626] flex items-center justify-center shrink-0`} 
         style={{ 
           ...pixelSizes[size], 
+          borderRadius: "12px", 
+          backgroundColor: "#dc2626", 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "center", 
+          flexShrink: 0,
           boxShadow: "0 0 20px rgba(220,38,38,0.4)" 
         }}
       >
@@ -62,7 +67,7 @@ function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
       </div>
 
       {/* Brand Name Text */}
-      <div className={`font-bold tracking-wide ${sizes[size]}`} style={{ fontFamily: "Rajdhani, sans-serif" }}>
+      <div style={{ fontSize: fontSizes[size], fontWeight: 700, fontFamily: "Rajdhani, sans-serif", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>
         <span style={{ color: '#ffffff' }}>Abhaya</span>
         <span style={{ color: '#dc2626', fontFamily: "Noto Sans Devanagari, sans-serif", fontWeight: 700 }}>पथ</span>
       </div>
@@ -72,9 +77,9 @@ function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 
 function StatusBar() {
   return (
-    <div className="flex justify-between items-center px-5 pt-3 pb-1 text-white text-xs w-full select-none">
-      <span style={{ fontFamily: "Poppins, sans-serif", color: "#ffffff" }}>9:41</span>
-      <div className="flex gap-2 items-center">
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 20px 4px 20px", color: "#ffffff", fontSize: "12px", width: "100%", boxSizing: "border-box", userSelect: "none" }}>
+      <span style={{ fontFamily: "Poppins, sans-serif", color: "#ffffff", fontWeight: 500 }}>9:41</span>
+      <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
         {/* Signal Icon */}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px', color: '#ffffff' }}>
           <path d="M2 20h.01M7 20v-4M12 20v-8M17 20v-12M22 20V4" />
@@ -83,10 +88,11 @@ function StatusBar() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px', color: '#ffffff' }}>
           <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" />
         </svg>
-        {/* Battery Icon */}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '16px', height: '14px', color: '#ffffff' }}>
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
-          <line x1="22" y1="11" x2="22" y2="13" />
+        {/* Horizontal Battery Icon (Left-to-Right) */}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '18px', height: '12px', color: '#ffffff' }}>
+          <rect x="1" y="6" width="18" height="12" rx="2" ry="2" />
+          <line x1="23" y1="10" x2="23" y2="14" />
+          <rect x="3" y="8" width="12" height="8" rx="1" ry="1" fill="currentColor" />
         </svg>
       </div>
     </div>
@@ -107,7 +113,7 @@ function InputField({ label, value, onChange, type = "text", placeholder }: {
   label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col w-full gap-1.5">
       <label className="text-xs font-medium text-white/50 uppercase tracking-widest">{label}</label>
       <input
         type={type}
@@ -119,6 +125,7 @@ function InputField({ label, value, onChange, type = "text", placeholder }: {
     </div>
   );
 }
+
 
 function PrimaryButton({ label, onClick, disabled, variant = "red" }: {
   label: string; onClick: () => void; disabled?: boolean; variant?: "red" | "navy" | "amber";
@@ -149,16 +156,16 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
   }, [onDone]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full bg-[#0a0f2e] gap-6">
-      <div className="animate-pulse">
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", width: "100%", backgroundColor: "#0a0f2e", gap: "20px", boxSizing: "border-box", position: "relative", margin: 0, padding: 0 }}>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Logo size="lg" />
       </div>
-      <p className="text-white/40 text-xs tracking-widest uppercase" style={{ fontFamily: "Poppins, sans-serif" }}>
-        FEARLESS PATH DESIGNED FOR SMART INDIA
+      <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", fontFamily: "Poppins, sans-serif", margin: 0, textAlign: "center" }}>
+        FEARLESS PATH DESIGNED FOR SMART INDIA(TESTING APP)
       </p>
-      <div className="absolute bottom-12 flex gap-1.5">
+      <div style={{ position: "absolute", bottom: "48px", display: "flex", gap: "6px" }}>
         {[0, 1, 2].map(i => (
-          <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#dc2626] animate-bounce" style={{ animationDelay: `${i * 0.18}s` }} />
+          <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#dc2626" }} />
         ))}
       </div>
     </div>
@@ -171,235 +178,275 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
   const [loginPass, setLoginPass] = useState("");
 
   return (
-  <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden" }}>
-    <StatusBar />
-    <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
-      
-      {/* Top Section Content Wrapper */}
-      <div>
-        {/* Header / Custom Inline Logo Row */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
-          {/* Red Shield Icon Container */}
-          <div style={{ width: "36px", height: "36px", backgroundColor: "#dc2626", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 12px rgba(220, 38, 38, 0.5)" }}>
-            <span style={{ color: "#ffffff", fontSize: "18px" }}>🛡️</span>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden" }}>
+      <StatusBar />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "16px 20px", justifyContent: "space-between", boxSizing: "border-box", overflowY: "auto" }}>
+        
+        {/* Top Header Section */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+          <Logo size="md" />
+
+          <div>
+            <h1 style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.7rem", color: "#ffffff", fontWeight: 700, lineHeight: "1.2", margin: 0 }}>
+              Fearless Path for<br />
+              <span style={{ color: "#dc2626" }}>Smart India Health</span>
+            </h1>
+            <p style={{ color: "#f59e0b", fontSize: "12px", fontWeight: 600, marginTop: "4px", marginBottom: 0, letterSpacing: "0.03em" }}>
+              #Go With AbhayaPath
+            </p>
           </div>
-          
-          {/* Side-by-Side Brand Name */}
-          <span style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.6rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.5px" }}>
-            Abhaya<span style={{ color: "#dc2626" }}>path</span>
-          </span>
-        </div>
 
-        {/* Heading Section */}
-        <div style={{ marginTop: "12px", marginBottom: "12px" }}>
-          <h1 style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1.45rem", color: "#ffffff", fontWeight: 700, lineHeight: "1.2", margin: 0 }}>
-            Fearless Path for<br />
-            <span style={{ color: "#dc2626" }}>Smart India Health</span>
-          </h1>
-          <p style={{ color: "#f59e0b", fontSize: "11px", fontWeight: 600, marginTop: "4px", marginBottom: 0, letterSpacing: "0.02em" }}>
-            #Go With AbhayaPath
-          </p>
-        </div>
+          {/* Compact Feature Cards - Only visible in Sign Up tab */}
+          {tab === "signup" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                { icon: "🚑", text: "Real-time ambulance corridor" },
+                { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
+                { icon: "⚡", text: "Instant e-challan for misuse" },
+                { icon: "🙋", text: "ONE USER ONE DEVICE" },
+              ].map(f => (
+                <div 
+                  key={f.text} 
+                  style={{ 
+                    backgroundColor: "#1e295d", 
+                    border: "1px solid rgba(255, 255, 255, 0.15)", 
+                    borderRadius: "10px", 
+                    padding: "8px 12px", 
+                    display: "flex", 
+                    alignItems: "center", 
+                    gap: "10px" 
+                  }}
+                >
+                  <span style={{ fontSize: "16px" }}>{f.icon}</span>
+                  <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500, lineHeight: "1.3" }}>{f.text}</span>
+                </div>
+              ))}
+            </div>
+          )}
 
-        {/* Compact Feature Cards - Only visible in Sign Up tab */}
-        {tab === "signup" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
-            {[
-              { icon: "🚑", text: "Real-time ambulance corridor" },
-              { icon: "🛡️", text: "AI emergency file verification with TLS MQTT encryption" },
-              { icon: "⚡", text: "Instant e-challan for misuse" },
-              { icon: "🙋", text: "ONE USER ONE DEVICE" },
-            ].map(f => (
-              <div 
-                key={f.text} 
-                style={{ 
-                  backgroundColor: "#1e295d", 
-                  border: "1px solid rgba(255, 255, 255, 0.12)", 
-                  borderRadius: "10px", 
-                  padding: "8px 12px", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  gap: "10px" 
-                }}
-              >
-                <span style={{ fontSize: "14px" }}>{f.icon}</span>
-                <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500, lineHeight: "1.2" }}>{f.text}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Tab Switcher */}
-        <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "10px", padding: "3px", display: "flex", marginBottom: "12px", marginTop: tab === "login" ? "12px" : "0" }}>
-          <button
-            type="button"
-            onClick={() => setTab("signup")}
-            style={{
-              flex: 1,
-              padding: "8px 0",
-              borderRadius: "7px",
-              fontSize: "12px",
-              fontWeight: 700,
-              border: "none",
-              cursor: "pointer",
-              backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
-              color: tab === "signup" ? "#ffffff" : "#9ca3af",
-              fontFamily: "Rajdhani, sans-serif",
-            }}
-          >
-            Sign Up
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab("login")}
-            style={{
-              flex: 1,
-              padding: "8px 0",
-              borderRadius: "7px",
-              fontSize: "12px",
-              fontWeight: 700,
-              border: "none",
-              cursor: "pointer",
-              backgroundColor: tab === "login" ? "#dc2626" : "transparent",
-              color: tab === "login" ? "#ffffff" : "#9ca3af",
-              fontFamily: "Rajdhani, sans-serif",
-            }}
-          >
-            Login
-          </button>
-        </div>
-
-        {/* Dynamic Form Area */}
-        {tab === "signup" ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <p style={{ color: "#9ca3af", fontSize: "11px", textAlign: "center", margin: 0 }}>Create your AbhayaPath account to get started.</p>
+          {/* Tab Switcher */}
+          <div style={{ backgroundColor: "#1e295d", border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "10px", padding: "3px", display: "flex" }}>
             <button
               type="button"
-              onClick={onSignup}
+              onClick={() => setTab("signup")}
               style={{
-                width: "100%",
-                backgroundColor: "#dc2626",
-                color: "#ffffff",
-                padding: "11px 0",
-                borderRadius: "10px",
-                fontSize: "13px",
+                flex: 1,
+                padding: "8px 0",
+                borderRadius: "8px",
+                fontSize: "12px",
                 fontWeight: 700,
                 border: "none",
                 cursor: "pointer",
-                boxShadow: "0 4px 14px rgba(220, 38, 38, 0.3)"
+                backgroundColor: tab === "signup" ? "#dc2626" : "transparent",
+                color: tab === "signup" ? "#ffffff" : "#9ca3af",
+                fontFamily: "Rajdhani, sans-serif",
+                transition: "all 0.2s ease"
               }}
             >
-              Create New Account
+              Sign Up
             </button>
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Mobile Number</label>
-              <input
-                value={loginPhone}
-                onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                type="tel"
-                placeholder="10-digit mobile number"
-                style={{
-                  width: "100%",
-                  backgroundColor: "#1e295d",
-                  color: "#ffffff",
-                  border: "1px solid rgba(255, 255, 255, 0.12)",
-                  borderRadius: "10px",
-                  padding: "8px 12px",
-                  fontSize: "12px",
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <label style={{ color: "#9ca3af", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Password</label>
-              <input
-                value={loginPass}
-                onChange={e => setLoginPass(e.target.value)}
-                type="password"
-                placeholder="Your password"
-                style={{
-                  width: "100%",
-                  backgroundColor: "#1e295d",
-                  color: "#ffffff",
-                  border: "1px solid rgba(255, 255, 255, 0.12)",
-                  borderRadius: "10px",
-                  padding: "8px 12px",
-                  fontSize: "12px",
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
             <button
               type="button"
-              onClick={onLogin}
-              disabled={loginPhone.length < 10 || loginPass.length < 4}
+              onClick={() => setTab("login")}
               style={{
-                width: "100%",
-                backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626",
-                color: "#ffffff",
-                padding: "10px 0",
-                borderRadius: "10px",
-                fontSize: "13px",
+                flex: 1,
+                padding: "8px 0",
+                borderRadius: "8px",
+                fontSize: "12px",
                 fontWeight: 700,
                 border: "none",
-                cursor: loginPhone.length < 10 || loginPass.length < 4 ? "not-allowed" : "pointer",
-                marginTop: "4px"
+                cursor: "pointer",
+                backgroundColor: tab === "login" ? "#dc2626" : "transparent",
+                color: tab === "login" ? "#ffffff" : "#9ca3af",
+                fontFamily: "Rajdhani, sans-serif",
+                transition: "all 0.2s ease"
               }}
             >
-              Login →
+              Login
             </button>
           </div>
-        )}
+
+          {/* Dynamic Form Area */}
+          {tab === "signup" ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "4px" }}>
+              <p style={{ color: "#9ca3af", fontSize: "12px", textAlign: "center", margin: 0 }}>Create your AbhayaPath account to get started.</p>
+              <button
+                type="button"
+                onClick={onSignup}
+                style={{
+                  width: "100%",
+                  backgroundColor: "#dc2626",
+                  color: "#ffffff",
+                  padding: "12px 0",
+                  borderRadius: "10px",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  boxShadow: "0 4px 14px rgba(220, 38, 38, 0.4)",
+                  fontFamily: "Rajdhani, sans-serif",
+                  letterSpacing: "0.5px"
+                }}
+              >
+                Create New Account
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "4px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <label style={{ color: "#9ca3af", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Mobile Number</label>
+                <input
+                  value={loginPhone}
+                  onChange={e => setLoginPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  type="tel"
+                  placeholder="10-digit mobile number"
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#1e295d",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    borderRadius: "10px",
+                    padding: "10px 12px",
+                    fontSize: "12px",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <label style={{ color: "#9ca3af", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Password</label>
+                <input
+                  value={loginPass}
+                  onChange={e => setLoginPass(e.target.value)}
+                  type="password"
+                  placeholder="Your password"
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#1e295d",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    borderRadius: "10px",
+                    padding: "10px 12px",
+                    fontSize: "12px",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={onLogin}
+                disabled={loginPhone.length < 10 || loginPass.length < 4}
+                style={{
+                  width: "100%",
+                  backgroundColor: loginPhone.length < 10 || loginPass.length < 4 ? "#374151" : "#dc2626",
+                  color: "#ffffff",
+                  padding: "12px 0",
+                  borderRadius: "10px",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: loginPhone.length < 10 || loginPass.length < 4 ? "not-allowed" : "pointer",
+                  marginTop: "6px",
+                  fontFamily: "Rajdhani, sans-serif",
+                  letterSpacing: "0.5px"
+                }}
+              >
+                Login →
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Footer Text */}
+        <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px", textAlign: "center", margin: "10px 0 0 0", lineHeight: "1.3" }}>
+          Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)
+        </p>
+
       </div>
-
-      {/* Footer Text */}
-      <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px", textAlign: "center", margin: "12px 0 0 0", lineHeight: "1.3" }}>
-        Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)
-      </p>
-
     </div>
-  
-);
+  );
+}
 function SignupScreen({ onBack, onNext, user, setUser }: {
   onBack: () => void; onNext: () => void; user: UserData; setUser: (u: UserData) => void;
 }) {
   const valid = user.name.length > 2 && user.phone.length === 10 && user.email.includes("@");
+  
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-4 pb-10 overflow-y-auto">
-        <div className="flex items-center gap-4 mb-8">
+      {/* Compact padding */}
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, width: "100%", maxWidth: "420px", margin: "0 auto", padding: "12px 20px 24px 20px", overflowY: "auto", boxSizing: "border-box" }}>
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
           <BackButton onBack={onBack} />
           <Logo size="sm" />
         </div>
-        <h2 className="text-white text-2xl font-bold mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Create Account</h2>
-        <p className="text-white/40 text-xs mb-8">Register to access AbhayaPath services</p>
 
-        <div className="flex flex-col gap-4">
-          <InputField label="Full Name" value={user.name} onChange={v => setUser({ ...user, name: v })} placeholder="e.g. Ankit" />
-          <InputField label="Mobile Number" value={user.phone} onChange={v => setUser({ ...user, phone: v.replace(/\D/g, "").slice(0, 10) })} type="tel" placeholder="10-digit mobile number" />
-          <InputField label="Email Address" value={user.email} onChange={v => setUser({ ...user, email: v })} type="email" placeholder="you@example.com" />
+        <h2 style={{ color: "#ffffff", fontSize: "22px", fontWeight: 700, marginBottom: "2px", fontFamily: "Rajdhani, sans-serif" }}>Create Account</h2>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "20px" }}>Register to access AbhayaPath services</p>
 
-          <div className="flex flex-col gap-1.5 mt-1">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-widest">Password</label>
-            <input type="password" placeholder="Create a strong password" className="w-full bg-[#1f2937] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30" />
+        {/* Compact Form Inputs Stack (gap reduced to 10px) */}
+        <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "10px" }}>
+          
+          {/* Full Name */}
+          <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "4px" }}>
+            <label style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Full Name</label>
+            <input
+              type="text"
+              value={user.name}
+              onChange={e => setUser({ ...user, name: e.target.value })}
+              placeholder="e.g. Ankit"
+              style={{ width: "100%", display: "block", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+            />
           </div>
 
-          <div className="bg-[#1a2780]/30 border border-[#1e3a8a]/40 rounded-xl p-4 mt-1">
-            <p className="text-white/60 text-xs leading-relaxed">
+          {/* Mobile Number */}
+          <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "4px" }}>
+            <label style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Mobile Number</label>
+            <input
+              type="tel"
+              value={user.phone}
+              onChange={e => setUser({ ...user, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+              placeholder="10-digit mobile number"
+              style={{ width: "100%", display: "block", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+            />
+          </div>
+
+          {/* Email Address */}
+          <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "4px" }}>
+            <label style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Email Address</label>
+            <input
+              type="email"
+              value={user.email}
+              onChange={e => setUser({ ...user, email: e.target.value })}
+              placeholder="you@example.com"
+              style={{ width: "100%", display: "block", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+            />
+          </div>
+
+          {/* Password */}
+          <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "4px" }}>
+            <label style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Password</label>
+            <input 
+              type="password" 
+              placeholder="Create a strong password" 
+              style={{ width: "100%", display: "block", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+            />
+          </div>
+
+          {/* Terms Box */}
+          <div style={{ backgroundColor: "rgba(26,39,128,0.3)", border: "1px solid rgba(30,58,138,0.4)", borderRadius: "10px", padding: "12px", marginTop: "2px", boxSizing: "border-box" }}>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "11px", lineHeight: "1.4", margin: 0 }}>
               By creating an account you agree to AbhayaPaths's Terms of Service and consent to the processing of vehicle data under MoRTH regulations.
             </p>
           </div>
         </div>
 
-        <div className="mt-8">
+        <div style={{ marginTop: "20px", width: "100%" }}>
           <PrimaryButton label="Continue →" onClick={onNext} disabled={!valid} />
         </div>
+
       </div>
     </div>
   );
@@ -421,38 +468,43 @@ function VehicleScreen({ onBack, onNext, user, setUser }: {
   const maskedOwnerPhone = details ? `+91-${details.ownerPhone}` : "";
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-4 pb-10 overflow-y-auto">
-        <div className="flex items-center gap-4 mb-8">
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, width: "100%", maxWidth: "420px", margin: "0 auto", padding: "12px 20px 24px 20px", overflowY: "auto", boxSizing: "border-box" }}>
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
           <BackButton onBack={onBack} />
           <Logo size="sm" />
         </div>
-        <h2 className="text-white text-2xl font-bold mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Vehicle Registration</h2>
-        <p className="text-white/40 text-xs mb-8">Verify your vehicle via VAHAN database</p>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-widest">Vehicle Number</label>
-            <div className="flex gap-2">
+        <h2 style={{ color: "#ffffff", fontSize: "22px", fontWeight: 700, marginBottom: "2px", fontFamily: "Rajdhani, sans-serif" }}>Vehicle Registration</h2>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "20px" }}>Verify your vehicle via VAHAN database</p>
+
+        <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "4px" }}>
+            <label style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Vehicle Number</label>
+            <div style={{ display: "flex", width: "100%", gap: "8px" }}>
               <input
                 value={user.vehicleNumber}
                 onChange={e => setUser({ ...user, vehicleNumber: e.target.value.toUpperCase() })}
                 placeholder="e.g. HR68BL9125"
-                className="flex-1 bg-[#1f2937] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30 tracking-widest"
+                style={{ flex: 1, display: "block", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box", letterSpacing: "0.1em" }}
               />
-              <button onClick={lookup} className="bg-[#1e3a8a] rounded-xl px-4 text-white text-sm font-medium hover:bg-[#1a2780] transition-colors">
+              <button 
+                onClick={lookup} 
+                style={{ backgroundColor: "#1e3a8a", border: "none", borderRadius: "10px", padding: "0 16px", color: "#ffffff", fontSize: "13px", fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}
+              >
                 Lookup
               </button>
             </div>
-            {error && <p className="text-[#dc2626] text-xs">{error}</p>}
+            {error && <p style={{ color: "#dc2626", fontSize: "11px", margin: "4px 0 0 0" }}>{error}</p>}
           </div>
 
           {details && (
-            <div className="bg-[#1f2937] border border-[#dc2626]/30 rounded-2xl p-4 flex flex-col gap-3 screen-slide-enter">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
-                <span className="text-[#16a34a] text-xs font-semibold">Verified in VAHAN(MoRTH PORTAL)</span>
+            <div style={{ backgroundColor: "#1f2937", border: "1px solid rgba(220,38,38,0.3)", borderRadius: "16px", padding: "16px", display: "flex", flexDirection: "column", gap: "10px", boxSizing: "border-box" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "2px" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#16a34a" }} />
+                <span style={{ color: "#16a34a", fontSize: "11px", fontWeight: 600 }}>Verified in VAHAN(MoRTH PORTAL)</span>
               </div>
               {[
                 ["Owner", details.owner],
@@ -460,31 +512,34 @@ function VehicleScreen({ onBack, onNext, user, setUser }: {
                 ["Registered On", details.registered],
                 ["State", details.state],
               ].map(([k, v]) => (
-                <div key={k} className="flex justify-between">
-                  <span className="text-white/40 text-xs">{k}</span>
-                  <span className="text-white text-xs font-medium">{v}</span>
+                <div key={k} style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>{k}</span>
+                  <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500 }}>{v}</span>
                 </div>
               ))}
 
               {!sent ? (
-                <div className="flex flex-col gap-2 mt-2">
-                  <div className="bg-[#1a2780]/30 border border-[#1e3a8a]/30 rounded-lg px-3 py-2">
-                    <p className="text-white/50 text-xs">OTP will be sent to the vehicle owner's registered mobile: <span className="text-white font-medium">{maskedOwnerPhone}</span></p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "4px" }}>
+                  <div style={{ backgroundColor: "rgba(26,39,128,0.3)", border: "1px solid rgba(30,58,138,0.3)", borderRadius: "8px", padding: "10px", boxSizing: "border-box" }}>
+                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", margin: 0, lineHeight: "1.4" }}>OTP will be sent to the vehicle owner's registered mobile: <span style={{ color: "#ffffff", fontWeight: 500 }}>{maskedOwnerPhone}</span></p>
                   </div>
-                  <button onClick={sendOtp} className="w-full bg-[#dc2626] hover:bg-[#b91c1c] rounded-xl py-2.5 text-white text-sm font-semibold transition-colors">
+                  <button 
+                    onClick={sendOtp} 
+                    style={{ width: "100%", backgroundColor: "#dc2626", border: "none", borderRadius: "10px", padding: "10px", color: "#ffffff", fontSize: "12px", fontWeight: 600, cursor: "pointer", boxSizing: "border-box" }}
+                  >
                     Send OTP to {maskedOwnerPhone}
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-col gap-2 mt-2">
-                  <div className="bg-[#16a34a]/10 border border-[#16a34a]/30 rounded-lg px-3 py-2">
-                    <p className="text-[#16a34a] text-xs">OTP sent to vehicle owner's number: <span className="font-medium">{maskedOwnerPhone}</span></p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "4px" }}>
+                  <div style={{ backgroundColor: "rgba(22,163,74,0.1)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: "8px", padding: "10px", boxSizing: "border-box" }}>
+                    <p style={{ color: "#16a34a", fontSize: "11px", margin: 0 }}>OTP sent to vehicle owner's number: <span style={{ fontWeight: 500 }}>{maskedOwnerPhone}</span></p>
                   </div>
                   <input
                     value={otp}
                     onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                     placeholder="Enter 6-digit OTP"
-                    className="w-full bg-[#0a0f2e] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30 tracking-[0.4em] text-center"
+                    style={{ width: "100%", display: "block", backgroundColor: "#0a0f2e", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box", letterSpacing: "0.4em", textAlign: "center" }}
                   />
                 </div>
               )}
@@ -492,10 +547,10 @@ function VehicleScreen({ onBack, onNext, user, setUser }: {
           )}
         </div>
 
-        <div className="mt-8">
+        <div style={{ marginTop: "20px", width: "100%" }}>
           <PrimaryButton label="Continue →" onClick={onNext} disabled={!details || !sent || otp.length < 6} />
         </div>
-        <p className="text-center text-white/25 text-xs mt-4">Try: HR68BL2731 · CHO1DC1562 · PB65J4068</p>
+        <p style={{ textAlign: "center", color: "rgba(255,255,255,0.25)", fontSize: "11px", margin: "12px 0 0 0" }}>Try: HR68BL2731 · CHO1DC1562 · PB65J4068</p>
       </div>
     </div>
   );
@@ -503,53 +558,86 @@ function VehicleScreen({ onBack, onNext, user, setUser }: {
 
 function CategoryScreen({ onBack, onSelect }: { onBack: () => void; onSelect: (c: "private" | "ambulance") => void }) {
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-4 pb-10">
-        <div className="flex items-center gap-4 mb-8">
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, width: "100%", maxWidth: "420px", margin: "0 auto", padding: "8px 16px 16px 16px", overflowY: "auto", boxSizing: "border-box" }}>
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
           <BackButton onBack={onBack} />
           <Logo size="sm" />
         </div>
-        <h2 className="text-white text-2xl font-bold mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Select Vehicle Category</h2>
-        <p className="text-white/40 text-xs mb-10">Choose the category that applies to your vehicle</p>
 
-        <div className="flex flex-col gap-4">
+        <h2 style={{ color: "#ffffff", fontSize: "20px", fontWeight: 700, marginBottom: "2px", fontFamily: "Rajdhani, sans-serif" }}>Select Vehicle Category</h2>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "12px" }}>Choose the category that applies to your vehicle</p>
+
+        {/* Cards Stack */}
+        <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "8px" }}>
+          
+          {/* Card 1: Private Vehicle */}
           <button
             onClick={() => onSelect("private")}
-            className="bg-[#1f2937] border border-white/10 hover:border-[#1e3a8a]/60 rounded-2xl p-6 text-left transition-all active:scale-95 group"
+            style={{ 
+              backgroundColor: "#1f2937", 
+              border: "1px solid rgba(255,255,255,0.1)", 
+              borderRadius: "12px", 
+              padding: "12px", 
+              textAlign: "left", 
+              cursor: "pointer", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: "4px",
+              boxSizing: "border-box",
+              width: "100%"
+            }}
           >
-            <div className="text-4xl mb-3">🚗</div>
-            <div className="text-white font-bold text-xl mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Private Vehicle</div>
-            <div className="text-white/50 text-sm leading-relaxed">
+            <div style={{ fontSize: "20px" }}>🚗</div>
+            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "15px", fontFamily: "Rajdhani, sans-serif" }}>Private Vehicle</div>
+            <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.3" }}>
               For personal and commercial vehicles using emergency corridors with valid hospital documentation.
             </div>
-            <div className="mt-4 flex items-center gap-1.5 text-[#1e3a8a] group-hover:text-white/60 transition-colors">
-              <span className="text-xs font-medium">Select this category</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" /></svg>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#1e3a8a", marginTop: "2px" }}>
+              <span style={{ fontSize: "11px", fontWeight: 600 }}>Select this category</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: "11px", height: "11px" }}><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" /></svg>
             </div>
           </button>
 
+          {/* Card 2: Ambulance / Hospital */}
           <button
             onClick={() => onSelect("ambulance")}
-            className="bg-gradient-to-br from-[#dc2626]/20 to-[#991b1b]/10 border border-[#dc2626]/40 hover:border-[#dc2626]/70 rounded-2xl p-6 text-left transition-all active:scale-95 group"
+            style={{ 
+              background: "linear-gradient(to bottom right, rgba(220,38,38,0.2), rgba(153,27,27,0.1))", 
+              border: "1px solid rgba(220,38,38,0.4)", 
+              borderRadius: "12px", 
+              padding: "12px", 
+              textAlign: "left", 
+              cursor: "pointer", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: "4px",
+              boxSizing: "border-box",
+              width: "100%"
+            }}
           >
-            <div className="text-4xl mb-3">🚑</div>
-            <div className="text-white font-bold text-xl mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Ambulance / Hospital</div>
-            <div className="text-white/50 text-sm leading-relaxed">
+            <div style={{ fontSize: "20px" }}>🚑</div>
+            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "15px", fontFamily: "Rajdhani, sans-serif" }}>Ambulance / Hospital</div>
+            <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.3" }}>
               For registered ambulances operating from verified hospitals. Requires hospital reference ID and 24-48 hour verification.
             </div>
-            <div className="mt-4 flex items-center gap-1.5 text-[#dc2626] group-hover:text-[#ef4444] transition-colors">
-              <span className="text-xs font-medium">Select this category</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" /></svg>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#dc2626", marginTop: "2px" }}>
+              <span style={{ fontSize: "11px", fontWeight: 600 }}>Select this category</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: "11px", height: "11px" }}><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" /></svg>
             </div>
           </button>
+
         </div>
 
-        <div className="mt-auto pt-8 bg-[#1a2780]/20 border border-[#1e3a8a]/20 rounded-xl p-4">
-          <p className="text-white/40 text-xs leading-relaxed">
+        {/* Warning Box */}
+        <div style={{ backgroundColor: "rgba(26,39,128,0.2)", border: "1px solid rgba(30,58,138,0.2)", borderRadius: "10px", padding: "8px 10px", marginTop: "10px", boxSizing: "border-box" }}>
+          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", lineHeight: "1.3", margin: 0 }}>
             ⚠️ Misrepresentation of vehicle category is a punishable offence under Motor Vehicles Act 1988. Automatic e-challans are issued for violations.
           </p>
         </div>
+
       </div>
     </div>
   );
@@ -558,37 +646,69 @@ function CategoryScreen({ onBack, onSelect }: { onBack: () => void; onSelect: (c
 function HospitalDetailsScreen({ onBack, onNext, user, setUser }: {
   onBack: () => void; onNext: () => void; user: UserData; setUser: (u: UserData) => void;
 }) {
-  const valid = user.hospitalName.length > 3 && user.hospitalRefId.length > 4;
+  const valid = (user.hospitalName || "").length > 3 && (user.hospitalRefId || "").length > 4;
+
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", backgroundColor: "#0a0f2e" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-4 pb-10 overflow-y-auto">
-        <div className="flex items-center gap-4 mb-8">
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, width: "100%", maxWidth: "420px", margin: "0 auto", padding: "8px 16px 16px 16px", overflowY: "auto", boxSizing: "border-box" }}>
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
           <BackButton onBack={onBack} />
           <Logo size="sm" />
         </div>
 
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-2xl">🏥</span>
-          <h2 className="text-white text-2xl font-bold" style={{ fontFamily: "Rajdhani, sans-serif" }}>Hospital Details</h2>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "2px" }}>
+          <span style={{ fontSize: "20px" }}>🏥</span>
+          <h2 style={{ color: "#ffffff", fontSize: "20px", fontWeight: 700, margin: 0, fontFamily: "Rajdhani, sans-serif" }}>Hospital Details</h2>
         </div>
-        <p className="text-white/40 text-xs mb-8">Details will be sent for hospital verification within 24-48 hours</p>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "12px" }}>Details will be sent for hospital verification within 24-48 hours</p>
 
-        <div className="flex flex-col gap-4">
-          <InputField label="Hospital Name" value={user.hospitalName} onChange={v => setUser({ ...user, hospitalName: v })} placeholder="e.g. AIIMS New Delhi" />
-          <InputField label="Hospital Reference ID" value={user.hospitalRefId} onChange={v => setUser({ ...user, hospitalRefId: v.toUpperCase() })} placeholder="e.g. AIIMS-AMB-2024-001" />
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-widest">Hospital Address</label>
-            <textarea placeholder="Full hospital address..." rows={3} className="w-full bg-[#1f2937] border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-[#dc2626]/60 transition-all placeholder:text-white/30 resize-none" />
+        <div style={{ display: "flex", flexDirection: "column", width: "100%", gap: "10px" }}>
+          
+          {/* Hospital Name Input */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "3px", width: "100%" }}>
+            <label style={{ fontSize: "10px", fontWeight: 600, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "1px" }}>Hospital Name</label>
+            <input
+              type="text"
+              value={user.hospitalName || ""}
+              onChange={e => setUser({ ...user, hospitalName: e.target.value })}
+              placeholder="e.g. AIIMS New Delhi"
+              style={{ display: "block", width: "100%", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 12px", color: "#ffffff", fontSize: "12px", outline: "none", boxSizing: "border-box" }}
+            />
           </div>
 
-          <div className="bg-[#f59e0b]/10 border border-[#f59e0b]/30 rounded-xl p-4">
-            <div className="flex items-start gap-2.5">
-              <span className="text-[#f59e0b] text-lg">⏳</span>
+          {/* Hospital Reference ID Input */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "3px", width: "100%" }}>
+            <label style={{ fontSize: "10px", fontWeight: 600, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "1px" }}>Hospital Reference ID</label>
+            <input
+              type="text"
+              value={user.hospitalRefId || ""}
+              onChange={e => setUser({ ...user, hospitalRefId: e.target.value.toUpperCase() })}
+              placeholder="e.g. AIIMS-AMB-2024-001"
+              style={{ display: "block", width: "100%", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 12px", color: "#ffffff", fontSize: "12px", outline: "none", boxSizing: "border-box" }}
+            />
+          </div>
+
+          {/* Hospital Address Textarea */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "3px", width: "100%" }}>
+            <label style={{ fontSize: "10px", fontWeight: 600, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "1px" }}>Hospital Address</label>
+            <textarea 
+              value={user.hospitalAddress || ""}
+              onChange={e => setUser({ ...user, hospitalAddress: e.target.value })}
+              placeholder="Full hospital address..." 
+              rows={2} 
+              style={{ display: "block", width: "100%", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 12px", color: "#ffffff", fontSize: "12px", outline: "none", boxSizing: "border-box", resize: "none", fontFamily: "inherit" }} 
+            />
+          </div>
+
+          {/* Verification Pending Notice */}
+          <div style={{ backgroundColor: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)", borderRadius: "10px", padding: "10px 12px", boxSizing: "border-box" }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+              <span style={{ color: "#f59e0b", fontSize: "14px" }}>⏳</span>
               <div>
-                <p className="text-[#f59e0b] text-xs font-semibold mb-0.5">Verification Pending</p>
-                <p className="text-white/50 text-xs leading-relaxed">
+                <p style={{ color: "#f59e0b", fontSize: "11px", fontWeight: 600, margin: "0 0 2px 0" }}>Verification Pending</p>
+                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", lineHeight: "1.3", margin: 0 }}>
                   Your details will be cross-verified with the hospital within 24-48 hours. You may proceed to use the app; ambulance corridor access activates post-verification.
                 </p>
               </div>
@@ -596,7 +716,7 @@ function HospitalDetailsScreen({ onBack, onNext, user, setUser }: {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div style={{ marginTop: "16px", width: "100%" }}>
           <PrimaryButton label="Submit & Continue →" onClick={onNext} disabled={!valid} variant="red" />
         </div>
       </div>
@@ -617,185 +737,218 @@ function MapScreen({ onBack, onStart, onProfile, user, setUser, isAmbulance }: {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0d1545] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <StatusBar />
-      {/* Map canvas */}
-      <div className="relative flex-1 map-grid overflow-hidden">
-        {/* Simulated map roads */}
-        <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 390 480" preserveAspectRatio="none">
-          <line x1="0" y1="200" x2="390" y2="200" stroke="#1e3a8a" strokeWidth="12" />
-          <line x1="0" y1="320" x2="390" y2="320" stroke="#1e3a8a" strokeWidth="8" />
-          <line x1="120" y1="0" x2="120" y2="480" stroke="#1e3a8a" strokeWidth="10" />
-          <line x1="270" y1="0" x2="270" y2="480" stroke="#1e3a8a" strokeWidth="6" />
-          <line x1="0" y1="120" x2="390" y2="280" stroke="#1e3a8a" strokeWidth="5" />
-          {routeReady && (
-            <path d="M80 380 Q120 300 180 240 Q240 180 310 100" stroke="#dc2626" strokeWidth="5" fill="none" strokeDasharray="10 4" opacity="0.8" />
-          )}
-        </svg>
-
-        {/* Origin pin */}
-        {routeReady && (
-          <div className="absolute bottom-32 left-16 flex flex-col items-center">
-            <div className="w-4 h-4 rounded-full bg-[#16a34a] border-2 border-white pulse-dot" />
-            <div className="text-white text-[9px] bg-black/60 rounded px-1.5 py-0.5 mt-1 whitespace-nowrap">{user.origin}</div>
-          </div>
-        )}
-        {routeReady && (
-          <div className="absolute top-20 right-16 flex flex-col items-center">
-            <div className="w-6 h-8 flex items-center justify-center">
-              <svg viewBox="0 0 24 32" className="w-6 h-8 drop-shadow-lg">
-                <path d="M12 0C7.03 0 3 4.03 3 9c0 6.75 9 18 9 18s9-11.25 9-18c0-4.97-4.03-9-9-9z" fill="#dc2626" />
-                <circle cx="12" cy="9" r="3.5" fill="white" />
-              </svg>
-            </div>
-            <div className="text-white text-[9px] bg-black/60 rounded px-1.5 py-0.5 mt-0.5 whitespace-nowrap">{user.destination}</div>
-          </div>
-        )}
-
-        {/* Floating header */}
-        <div className="absolute top-2 left-0 right-0 flex items-center gap-3 px-4">
-          <button onClick={onBack} className="w-9 h-9 rounded-full bg-[#0d1545]/90 border border-white/10 flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="w-4 h-4" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-          </button>
-          <div className="flex-1 bg-[#0d1545]/90 border border-white/10 rounded-full px-4 py-2 flex items-center gap-2">
-            <Logo size="sm" />
-          </div>
-          {isAmbulance && (
-            <div className="bg-[#dc2626]/90 rounded-full px-2.5 py-1 text-white text-[10px] font-bold tracking-wide">AMBU</div>
-          )}
-          <button onClick={onProfile} className="w-9 h-9 rounded-full bg-[#0d1545]/90 border border-white/10 flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-4 h-4" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-          </button>
+      
+      {/* Top Header Bar with Map Back, Logo, and Profile Button */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", padding: "8px 16px", flexShrink: 0, zIndex: 30 }}>
+        <button onClick={onBack} style={{ display: "flex", alignItems: "center", gap: "4px", backgroundColor: "rgba(13,21,69,0.9)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "4px 10px", color: "rgba(255,255,255,0.8)", cursor: "pointer" }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: "12px", height: "12px" }} strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
+          <span style={{ fontSize: "11px", fontWeight: 500 }}>Back</span>
+        </button>
+        
+        <div style={{ backgroundColor: "rgba(13,21,69,0.9)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px", padding: "4px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Logo size="sm" />
         </div>
+
+        {/* Profile Button Icon */}
+        <button 
+          onClick={onProfile} 
+          style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: "#dc2626", border: "1px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#ffffff", boxShadow: "0 2px 8px rgba(220,38,38,0.4)" }}
+          title="Open Profile"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: "16px", height: "16px" }} strokeLinecap="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+          </svg>
+        </button>
       </div>
 
-      {/* Bottom sheet */}
-      <div className="bg-[#0a0f2e] border-t border-white/5 px-5 pt-5 pb-8 flex flex-col gap-4">
-        <h3 className="text-white font-bold text-base" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          {isAmbulance ? "Ambulance Navigation" : "Route Planner"}
-        </h3>
+      {/* Map Canvas Background */}
+      <div style={{ position: "relative", flex: 1, overflow: "hidden" }} className="map-grid">
+        <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.25 }} viewBox="0 0 390 480" preserveAspectRatio="none">
+          <line x1="0" y1="200" x2="390" y2="200" stroke="#3b82f6" strokeWidth="12" />
+          <line x1="0" y1="320" x2="390" y2="320" stroke="#3b82f6" strokeWidth="8" />
+          <line x1="120" y1="0" x2="120" y2="480" stroke="#3b82f6" strokeWidth="10" />
+          <line x1="270" y1="0" x2="270" y2="480" stroke="#3b82f6" strokeWidth="6" />
+          {routeReady && (
+            <path d="M80 380 Q120 300 180 240 Q240 180 310 100" stroke="#dc2626" strokeWidth="6" fill="none" strokeDasharray="10 4" opacity="0.9" />
+          )}
+        </svg>
+      </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3 bg-[#1f2937] rounded-xl px-4 py-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#16a34a] flex-shrink-0" />
+      {/* Bottom Sheet Container */}
+      <div style={{ backgroundColor: "#111842", borderTop: "1px solid rgba(255,255,255,0.15)", borderTopLeftRadius: "24px", borderTopRightRadius: "24px", padding: "16px 20px 20px 20px", display: "flex", flexDirection: "column", gap: "12px", zIndex: 30, boxShadow: "0 -10px 30px rgba(0,0,0,0.5)" }}>
+        <div style={{ width: "40px", height: "4px", backgroundColor: "rgba(255,255,255,0.2)", borderRadius: "2px", alignSelf: "center", marginBottom: "2px" }} />
+        
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "15px", margin: 0, fontFamily: "Rajdhani, sans-serif" }}>
+            {isAmbulance ? "🚨 Ambulance Corridor Active" : "Route Planner"}
+          </h3>
+          <span style={{ fontSize: "10px", color: "#93c5fd", backgroundColor: "rgba(30,58,138,0.8)", border: "1px solid rgba(59,130,246,0.3)", padding: "2px 8px", borderRadius: "10px", fontWeight: 500 }}>
+            Live GPS
+          </span>
+        </div>
+
+        {/* Inputs Card */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px", backgroundColor: "#0a0f2e", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "10px", boxSizing: "border-box" }}>
+          
+          {/* Origin Input with Fixed Circular Green Dot */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", backgroundColor: "rgba(30,41,93,0.7)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px 12px" }}>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#16a34a", flexShrink: 0, boxShadow: "0 0 8px rgba(22,163,74,0.8)" }} />
             <input
               value={user.origin}
               onChange={e => setUser({ ...user, origin: e.target.value })}
               placeholder="Current location / Origin"
-              className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30"
+              style={{ flex: 1, background: "transparent", border: "none", color: "#ffffff", fontSize: "12px", outline: "none" }}
             />
           </div>
-          <div className="flex items-center gap-3 bg-[#1f2937] rounded-xl px-4 py-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#dc2626] flex-shrink-0" />
+
+          {/* Destination Input with Circular Red Dot */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", backgroundColor: "rgba(30,41,93,0.7)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px 12px" }}>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#dc2626", flexShrink: 0, boxShadow: "0 0 8px rgba(220,38,38,0.8)" }} />
             <input
               value={user.destination}
               onChange={e => !isAmbulance && setUser({ ...user, destination: e.target.value })}
               placeholder={isAmbulance ? user.hospitalName || "Hospital destination" : "Enter destination"}
-              className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30"
+              style={{ flex: 1, background: "transparent", border: "none", color: "#ffffff", fontSize: "12px", outline: "none" }}
               readOnly={isAmbulance}
             />
-            {isAmbulance && <span className="text-[#dc2626] text-xs font-medium">Auto-set</span>}
+            {isAmbulance && <span style={{ color: "#f87171", fontSize: "9px", fontWeight: 700, backgroundColor: "rgba(127,29,29,0.6)", padding: "2px 6px", borderRadius: "4px" }}>Auto</span>}
           </div>
         </div>
 
         {!routeReady ? (
-          <PrimaryButton
-            label={searching ? "Finding Route…" : "Find Route"}
+          <button
+            type="button"
             onClick={findRoute}
             disabled={searching || !user.origin || !user.destination}
-            variant="navy"
-          />
+            style={{ width: "100%", background: "linear-gradient(135deg, #dc2626 0%, #991b1b 100%)", color: "#ffffff", fontWeight: 700, padding: "12px", borderRadius: "12px", fontSize: "13px", border: "none", cursor: "pointer", fontFamily: "Rajdhani, sans-serif", boxShadow: "0 4px 12px rgba(220,38,38,0.3)" }}
+          >
+            {searching ? "Finding Secure Route..." : "Find Route & Check Corridor"}
+          </button>
         ) : (
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-3 text-white/60 text-xs">
-              <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-                <div className="text-white font-bold text-lg" style={{ fontFamily: "Rajdhani, sans-serif" }}>14.3 km</div>
-                <div className="text-xs">Distance</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div style={{ display: "flex", gap: "6px" }}>
+              <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px", textAlign: "center" }}>
+                <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "14px", fontFamily: "Rajdhani, sans-serif" }}>14.3 km</div>
+                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "9px", textTransform: "uppercase" }}>Distance</div>
               </div>
-              <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-                <div className="text-white font-bold text-lg" style={{ fontFamily: "Rajdhani, sans-serif" }}>22 min</div>
-                <div className="text-xs">ETA</div>
+              <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px", textAlign: "center" }}>
+                <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "14px", fontFamily: "Rajdhani, sans-serif" }}>22 min</div>
+                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "9px", textTransform: "uppercase" }}>ETA</div>
               </div>
-              <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-                <div className="text-[#16a34a] font-bold text-lg" style={{ fontFamily: "Rajdhani, sans-serif" }}>Clear</div>
-                <div className="text-xs">Traffic</div>
+              <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px", textAlign: "center" }}>
+                <div style={{ color: "#34d399", fontWeight: 700, fontSize: "14px", fontFamily: "Rajdhani, sans-serif" }}>Clear</div>
+                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "9px", textTransform: "uppercase" }}>Traffic</div>
               </div>
             </div>
-            <PrimaryButton label="🚀  Start Journey" onClick={onStart} variant="red" />
+            <button
+              type="button"
+              onClick={onStart}
+              style={{ width: "10px" /* (ignoring this) */, width: "100%", background: "linear-gradient(135deg, #dc2626 0%, #991b1b 100%)", color: "#ffffff", fontWeight: 700, padding: "12px", borderRadius: "12px", fontSize: "13px", border: "none", cursor: "pointer", fontFamily: "Rajdhani, sans-serif", boxShadow: "0 4px 12px rgba(220,38,38,0.4)", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+            >
+              <span>🚀</span> Start Secure Journey
+            </button>
           </div>
         )}
       </div>
     </div>
   );
 }
-
 function JourneyActiveScreen({ onEnd, user, isAmbulance }: { onEnd: () => void; user: UserData; isAmbulance: boolean }) {
   const [elapsed, setElapsed] = useState(0);
+  
   useEffect(() => {
     const t = setInterval(() => setElapsed(e => e + 1), 1000);
     return () => clearInterval(t);
   }, []);
+
   const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
   return (
-    <div className="flex flex-col h-full bg-[#0d1545]">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <StatusBar />
-      <div className="relative flex-1 map-grid overflow-hidden">
-        <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 390 480" preserveAspectRatio="none">
-          <line x1="0" y1="200" x2="390" y2="200" stroke="#1e3a8a" strokeWidth="12" />
-          <line x1="0" y1="320" x2="390" y2="320" stroke="#1e3a8a" strokeWidth="8" />
-          <line x1="120" y1="0" x2="120" y2="480" stroke="#1e3a8a" strokeWidth="10" />
-          <line x1="270" y1="0" x2="270" y2="480" stroke="#1e3a8a" strokeWidth="6" />
-          <path d="M80 380 Q120 300 180 240 Q240 180 310 100" stroke="#dc2626" strokeWidth="5" fill="none" opacity="0.8" />
+      
+      {/* Map Canvas Background Container - Forced flex-1 so it takes up maximum space */}
+      <div className="map-grid" style={{ position: "relative", flex: 1, width: "100%", minHeight: "220px", overflow: "hidden" }}>
+        <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.3 }} viewBox="0 0 390 480" preserveAspectRatio="none">
+          <line x1="0" y1="200" x2="390" y2="200" stroke="#3b82f6" strokeWidth="12" />
+          <line x1="0" y1="320" x2="390" y2="320" stroke="#3b82f6" strokeWidth="8" />
+          <line x1="120" y1="0" x2="120" y2="480" stroke="#3b82f6" strokeWidth="10" />
+          <line x1="270" y1="0" x2="270" y2="480" stroke="#3b82f6" strokeWidth="6" />
+          <path d="M80 380 Q120 300 180 240 Q240 180 310 100" stroke="#dc2626" strokeWidth="6" fill="none" strokeDasharray="10 4" opacity="0.9" />
         </svg>
 
-        {/* Animated vehicle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl animate-bounce">
+        {/* Animated Vehicle */}
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "32px", filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))", zIndex: 10 }}>
           {isAmbulance ? "🚑" : "🚗"}
         </div>
 
-        {/* Live badge */}
-        <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-[#dc2626] rounded-full px-3 py-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span className="text-white text-xs font-bold tracking-wide">LIVE</span>
+        {/* Live Badge */}
+        <div style={{ position: "absolute", top: "16px", right: "16px", display: "flex", alignItems: "center", gap: "6px", backgroundColor: "#dc2626", borderRadius: "16px", padding: "4px 10px", boxShadow: "0 2px 8px rgba(220,38,38,0.4)", zIndex: 10 }}>
+          <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#ffffff" }} />
+          <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 700, letterSpacing: "0.5px" }}>LIVE</span>
         </div>
-        <div className="absolute top-4 left-4 bg-[#0d1545]/90 border border-white/10 rounded-xl px-3 py-2">
-          <div className="text-white font-bold text-xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>{fmt(elapsed)}</div>
-          <div className="text-white/40 text-xs">Journey Time</div>
+
+        {/* Journey Time Counter Card */}
+        <div style={{ position: "absolute", top: "16px", left: "16px", backgroundColor: "rgba(13,21,69,0.9)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "14px", padding: "8px 12px", backdropFilter: "blur(4px)", zIndex: 10 }}>
+          <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "16px", fontFamily: "Rajdhani, sans-serif" }}>{fmt(elapsed)}</div>
+          <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "9px", textTransform: "uppercase" }}>Journey Time</div>
+        </div>
+
+        {/* MapmyIndia / ISRO NavIC Attribution pinned inside map */}
+        <div style={{ position: "absolute", bottom: "12px", left: "50%", transform: "translateX(-50%)", color: "rgba(255,255,255,0.45)", fontSize: "9px", fontWeight: 500, letterSpacing: "0.5px", whiteSpace: "nowrap", zIndex: 10, pointerEvents: "none" }}>
+          Navigation by MapmyIndia (Mappls) & ISRO NavIC
         </div>
       </div>
 
-      <div className="bg-[#0a0f2e] border-t border-white/5 px-5 pt-5 pb-8 flex flex-col gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-2 h-2 rounded-full bg-[#dc2626] animate-pulse" />
-          <span className="text-white text-sm font-medium">Journey in Progress</span>
-          {isAmbulance && <span className="ml-auto bg-[#dc2626]/20 text-[#dc2626] text-xs px-2 py-0.5 rounded-full font-semibold">EMERGENCY CORRIDOR ACTIVE</span>}
+      {/* Bottom Sheet Container */}
+      <div style={{ backgroundColor: "#111842", borderTop: "1px solid rgba(255,255,255,0.15)", borderTopLeftRadius: "24px", borderTopRightRadius: "24px", padding: "12px 16px 16px 16px", display: "flex", flexDirection: "column", gap: "10px", zIndex: 30, boxShadow: "0 -10px 30px rgba(0,0,0,0.5)", flexShrink: 0 }}>
+        <div style={{ width: "36px", height: "4px", backgroundColor: "rgba(255,255,255,0.2)", borderRadius: "2px", alignSelf: "center", marginBottom: "0px" }} />
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#dc2626" }} />
+          <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 600 }}>Journey in Progress</span>
+          {isAmbulance && (
+            <span style={{ marginLeft: "auto", backgroundColor: "rgba(220,38,38,0.2)", color: "#f87171", fontSize: "9px", padding: "2px 8px", borderRadius: "10px", fontWeight: 700 }}>
+              EMERGENCY CORRIDOR ACTIVE
+            </span>
+          )}
         </div>
 
-        <div className="flex gap-3 text-white/60 text-xs">
-          <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-            <div className="text-white font-bold text-base" style={{ fontFamily: "Rajdhani, sans-serif" }}>8.7 km</div>
-            <div className="text-xs">Remaining</div>
+        {/* Stats Grid */}
+        <div style={{ display: "flex", gap: "6px" }}>
+          <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "6px", textAlign: "center" }}>
+            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "13px", fontFamily: "Rajdhani, sans-serif" }}>8.7 km</div>
+            <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "8px", textTransform: "uppercase" }}>Remaining</div>
           </div>
-          <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-            <div className="text-white font-bold text-base" style={{ fontFamily: "Rajdhani, sans-serif" }}>11 min</div>
-            <div className="text-xs">ETA</div>
+          <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "6px", textAlign: "center" }}>
+            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "13px", fontFamily: "Rajdhani, sans-serif" }}>11 min</div>
+            <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "8px", textTransform: "uppercase" }}>ETA</div>
           </div>
-          <div className="flex-1 bg-[#1f2937] rounded-xl p-3 text-center">
-            <div className="text-white font-bold text-base" style={{ fontFamily: "Rajdhani, sans-serif" }}>58 km/h</div>
-            <div className="text-xs">Speed</div>
+          <div style={{ flex: 1, backgroundColor: "#1e295d", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "6px", textAlign: "center" }}>
+            <div style={{ color: "#34d399", fontWeight: 700, fontSize: "13px", fontFamily: "Rajdhani, sans-serif" }}>58 km/h</div>
+            <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "8px", textTransform: "uppercase" }}>Speed</div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 text-xs text-white/50">
-          <div className="flex justify-between"><span>Origin</span><span className="text-white">{user.origin || "Current Location"}</span></div>
-          <div className="flex justify-between"><span>Destination</span><span className="text-white">{user.destination}</span></div>
+        {/* Origin & Destination details */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "4px", backgroundColor: "#0a0f2e", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "8px 10px", fontSize: "11px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "rgba(255,255,255,0.5)" }}>Origin</span>
+            <span style={{ color: "#ffffff", fontWeight: 500 }}>{user.origin || "Current Location"}</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "rgba(255,255,255,0.5)" }}>Destination</span>
+            <span style={{ color: "#ffffff", fontWeight: 500 }}>{user.destination}</span>
+          </div>
         </div>
 
+        {/* End Journey Button */}
         <button
+          type="button"
           onClick={onEnd}
-          className="w-full border-2 border-[#dc2626]/50 hover:border-[#dc2626] rounded-2xl py-3.5 text-[#dc2626] font-semibold text-sm transition-all active:scale-95"
-          style={{ fontFamily: "Rajdhani, sans-serif" }}
+          style={{ width: "100%", background: "transparent", border: "2px solid rgba(220,38,38,0.6)", color: "#dc2626", fontWeight: 700, padding: "8px", borderRadius: "10px", fontSize: "12px", cursor: "pointer", fontFamily: "Rajdhani, sans-serif", transition: "all 0.2s" }}
         >
           End Journey
         </button>
@@ -830,69 +983,97 @@ function UploadFileScreen({ onUpload, onSkip, isAmbulance }: { onUpload: () => v
   const pct = Math.round((timeLeft / 7200) * 100);
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-6 pb-10 overflow-y-auto">
+      
+      {/* Added minHeight: 0 to allow proper flex-child scrolling */}
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0, padding: "20px 24px 24px 24px", overflowY: "auto" }}>
         <Logo size="sm" />
-        <div className="mt-8 mb-6">
-          <div className="w-16 h-16 rounded-2xl bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex items-center justify-center mb-4 upload-glow">
-            <span className="text-3xl">📋</span>
+        
+        <div style={{ marginTop: "20px", marginBottom: "16px", flexShrink: 0 }}>
+          <div style={{ width: "56px", height: "56px", borderRadius: "14px", backgroundColor: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.3)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "12px" }}>
+            <span style={{ fontSize: "24px" }}>📋</span>
           </div>
-          <h2 className="text-white text-2xl font-bold mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>Upload Emergency File</h2>
-          <p className="text-white/40 text-sm leading-relaxed">
+          <h2 style={{ color: "#ffffff", fontSize: "20px", fontWeight: 700, marginBottom: "4px", fontFamily: "Rajdhani, sans-serif" }}>Upload Emergency File</h2>
+          <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "12px", lineHeight: "1.4" }}>
             {isAmbulance
               ? "Upload the emergency authorization file issued by the hospital to complete your journey record."
               : "Upload the hospital-issued emergency file to justify your emergency corridor usage."}
           </p>
         </div>
 
-        {/* Countdown */}
-        <div className="bg-[#f59e0b]/10 border border-[#f59e0b]/30 rounded-2xl p-5 mb-6">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-[#f59e0b] text-xs font-semibold uppercase tracking-wide">Time Remaining</span>
-            <span className="text-white font-bold text-2xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>{fmtTime(timeLeft)}</span>
+        {/* Countdown Box */}
+        <div style={{ backgroundColor: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.3)", borderRadius: "14px", padding: "14px", marginBottom: "16px", flexShrink: 0 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            <span style={{ color: "#f59e0b", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>Time Remaining</span>
+            <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "18px", fontFamily: "Rajdhani, sans-serif" }}>{fmtTime(timeLeft)}</span>
           </div>
-          <div className="h-2 bg-[#1f2937] rounded-full overflow-hidden">
+          <div style={{ height: "6px", backgroundColor: "#1f2937", borderRadius: "3px", overflow: "hidden" }}>
             <div
-              className="h-full rounded-full transition-all"
-              style={{ width: `${pct}%`, background: pct > 50 ? "#16a34a" : pct > 20 ? "#f59e0b" : "#dc2626" }}
+              style={{
+                height: "100%",
+                borderRadius: "3px",
+                width: `${pct}%`,
+                backgroundColor: pct > 50 ? "#16a34a" : pct > 20 ? "#f59e0b" : "#dc2626",
+                transition: "width 0.3s ease",
+              }}
             />
           </div>
-          <p className="text-white/30 text-xs mt-2">File must be uploaded within 2 hours of journey end</p>
+          <p style={{ color: "rgba(255, 255, 255, 0.3)", fontSize: "10px", marginTop: "6px" }}>File must be uploaded within 2 hours of journey end</p>
         </div>
 
-        {/* Upload area */}
+        {/* Upload Button or Success View */}
         {!uploaded ? (
           <button
+            type="button"
             onClick={handleUpload}
-            className="w-full bg-[#1f2937] border-2 border-dashed border-white/20 hover:border-[#dc2626]/50 rounded-2xl p-8 flex flex-col items-center gap-3 transition-all active:scale-95"
+            style={{
+              width: "100%",
+              backgroundColor: "#1f2937",
+              border: "2px dashed rgba(255, 255, 255, 0.2)",
+              borderRadius: "14px",
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "6px",
+              cursor: "pointer",
+              flexShrink: 0,
+              transition: "all 0.2s",
+            }}
           >
-            <div className="text-4xl">⬆️</div>
-            <div className="text-white font-semibold" style={{ fontFamily: "Rajdhani, sans-serif" }}>Tap to Upload File</div>
-            <div className="text-white/40 text-xs">PDF, JPG, PNG • Max 10MB</div>
+            <div style={{ fontSize: "28px" }}>⬆️</div>
+            <div style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Rajdhani, sans-serif", fontSize: "14px" }}>Tap to Upload File</div>
+            <div style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px" }}>PDF, JPG, PNG • Max 10MB</div>
           </button>
         ) : (
-          <div className="bg-[#16a34a]/10 border border-[#16a34a]/30 rounded-2xl p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[#16a34a]/20 flex items-center justify-center text-2xl">
+          <div style={{ backgroundColor: "rgba(22, 163, 74, 0.1)", border: "1px solid rgba(22, 163, 74, 0.3)", borderRadius: "14px", padding: "14px", display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "10px", backgroundColor: "rgba(22, 163, 74, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }}>
               {verifying ? "🔍" : "✅"}
             </div>
-            <div>
-              <div className="text-white font-semibold text-sm">{verifying ? "AI Verifying Document…" : "Document Verified"}</div>
-              <div className="text-white/40 text-xs">{verifying ? "Checking authenticity with AI…" : "Emergency file authenticated successfully"}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ color: "#ffffff", fontWeight: 600, fontSize: "12px" }}>{verifying ? "AI Verifying Document…" : "Document Verified"}</div>
+              <div style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px" }}>{verifying ? "Checking authenticity with AI…" : "Emergency file authenticated successfully"}</div>
             </div>
-            {verifying && <div className="ml-auto w-5 h-5 border-2 border-[#16a34a] border-t-transparent rounded-full animate-spin" />}
+            {verifying && <div style={{ width: "16px", height: "16px", border: "2px solid #16a34a", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 1s linear infinite" }} />}
           </div>
         )}
 
-        <div className="bg-[#dc2626]/10 border border-[#dc2626]/20 rounded-xl p-4 mt-4">
-          <p className="text-[#dc2626] text-xs font-semibold mb-1">⚠️ Important Warning</p>
-          <p className="text-white/50 text-xs leading-relaxed">
+        {/* Warning Box */}
+        <div style={{ backgroundColor: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", borderRadius: "12px", padding: "12px", marginTop: "14px", flexShrink: 0 }}>
+          <p style={{ color: "#dc2626", fontSize: "10px", fontWeight: 600, marginBottom: "3px" }}>⚠️ Important Warning</p>
+          <p style={{ color: "rgba(255, 255, 255, 0.5)", fontSize: "10px", lineHeight: "1.4" }}>
             Failure to upload within the deadline will trigger an automatic e-challan of ₹10,000. Submitting a fake or altered document attracts penalties under BNS section 336/section 340.
           </p>
         </div>
 
-        <button onClick={onSkip} className="mt-6 text-white/30 hover:text-white/60 text-xs text-center transition-colors">
-          I'll upload later (timer continues)
+        {/* Skip button */}
+        <button
+          type="button"
+      onClick={onSkip}
+          style={{ marginTop: "16px", marginBottom: "8px", background: "none", border: "none", color: "rgba(255, 255, 255, 0.3)", fontSize: "11px", cursor: "pointer", textAlign: "center", padding: "6px", flexShrink: 0 }}
+        >
+          I'l upload later (timer continues)
         </button>
       </div>
     </div>
@@ -901,31 +1082,39 @@ function UploadFileScreen({ onUpload, onSkip, isAmbulance }: { onUpload: () => v
 
 function ChallanScreen({ onBack }: { onBack: () => void }) {
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-8 pb-10 items-center justify-center">
-        <div className="text-6xl mb-6">🚫</div>
-        <div className="bg-[#dc2626]/10 border border-[#dc2626]/40 rounded-2xl p-6 w-full mb-8">
-          <div className="text-center mb-4">
-            <span className="text-[#dc2626] font-bold text-xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>E-CHALLAN ISSUED</span>
-            <div className="text-white/40 text-xs mt-1">Auto-generated · {new Date().toLocaleString("en-IN")}</div>
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0, padding: "24px", alignItems: "center", justifyContent: "center", overflowY: "auto" }}>
+        <div style={{ fontSize: "56px", marginBottom: "20px" }}>🚫</div>
+        
+        <div style={{ backgroundColor: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.4)", borderRadius: "16px", padding: "20px", width: "100%", marginBottom: "20px" }}>
+          <div style={{ textAlign: "center", marginBottom: "16px" }}>
+            <span style={{ color: "#dc2626", fontWeight: 700, fontSize: "18px", fontFamily: "Rajdhani, sans-serif" }}>E-CHALLAN ISSUED</span>
+            <div style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px", marginTop: "4px" }}>Auto-generated · {new Date().toLocaleString("en-IN")}</div>
           </div>
-          <div className="flex flex-col gap-3 text-sm">
+          
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "12px" }}>
             {[
               ["Violation", "Misuse of Software/Not Uploaded on Time"],
               ["Penalty Amount", "₹10,000"],
               ["Challan No.", "ECH-2024-" + Math.floor(Math.random() * 90000 + 10000)],
               ["Due Date", new Date(Date.now() + 15 * 86400000).toLocaleDateString("en-IN")],
-            ].map(([k, v]) => (
-              <div key={k} className="flex justify-between border-b border-white/5 pb-3">
-                <span className="text-white/40">{k}</span>
-                <span className={`text-white font-medium ${k === "Penalty Amount" ? "text-[#dc2626]" : ""}`}>{v}</span>
+            ].map(([k, v], idx, arr) => (
+              <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: idx !== arr.length - 1 ? "1px solid rgba(255, 255, 255, 0.05)" : "none", paddingBottom: idx !== arr.length - 1 ? "12px" : "0" }}>
+                <span style={{ color: "rgba(255, 255, 255, 0.4)" }}>{k}</span>
+                <span style={{ color: k === "Penalty Amount" ? "#dc2626" : "#ffffff", fontWeight: 500 }}>{v}</span>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-white/40 text-xs text-center mb-8">Pay the challan at Parivahan portal or your nearest RTO office/regarding the issue go to nearest RTO.</p>
-        <PrimaryButton label="Back to Home" onClick={onBack} variant="navy" />
+
+        <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px", textAlign: "center", marginBottom: "20px", lineHeight: "1.4" }}>
+          Pay the challan at Parivahan portal or your nearest RTO office/regarding the issue go to nearest RTO.
+        </p>
+
+        <div style={{ width: "100%" }}>
+          <PrimaryButton label="Back to Home" onClick={onBack} variant="navy" />
+        </div>
       </div>
     </div>
   );
@@ -933,63 +1122,68 @@ function ChallanScreen({ onBack }: { onBack: () => void }) {
 
 function VerifiedScreen({ onDone, isAmbulance }: { onDone: () => void; isAmbulance: boolean }) {
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <StatusBar />
+      
       {isAmbulance ? (
         /* Ambulance thank-you screen — no AI verification */
-        <div className="flex flex-col flex-1 px-6 pb-10 items-center justify-center gap-7">
-          <div className="w-28 h-28 rounded-full bg-[#1e3a8a]/30 border-2 border-[#1e3a8a]/50 flex items-center justify-center text-6xl">
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0, padding: "24px", alignItems: "center", justifyContent: "center", gap: "20px", overflowY: "auto" }}>
+          <div style={{ width: "96px", height: "96px", borderRadius: "50%", backgroundColor: "rgba(30, 58, 138, 0.3)", border: "2px solid rgba(30, 58, 138, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "48px" }}>
             🚑
           </div>
-          <div className="text-center flex flex-col gap-2">
-            <h2 className="text-white font-bold text-3xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "26px", fontFamily: "Rajdhani, sans-serif" }}>
               Thank You!
             </h2>
-            <p className="text-white/60 text-sm leading-relaxed px-4">
+            <p style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: "13px", lineHeight: "1.5", padding: "0 16px" }}>
               Thank you for using AbhayaPath services. Your journey has been recorded safely.
             </p>
-            <p className="text-[#f59e0b] text-sm font-bold tracking-wide mt-1">#Go With AbhayaPath</p>
+            <p style={{ color: "#f59e0b", fontSize: "13px", fontWeight: 700, letterSpacing: "0.5px", marginTop: "4px" }}>#Go With AbhayaPath</p>
           </div>
-          <div className="w-full bg-[#1f2937] border border-white/5 rounded-2xl p-5 flex flex-col gap-3">
+
+          <div style={{ width: "100%", backgroundColor: "#1f2937", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: "16px", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
               ["Journey ID", "APJ-AMB-" + Math.floor(Math.random() * 90000 + 10000)],
               ["Status", "Completed"],
               ["Service", "Ambulance Corridor"],
-            ].map(([k, v]) => (
-              <div key={k} className="flex justify-between border-b border-white/5 pb-3 last:border-0 last:pb-0">
-                <span className="text-white/40 text-xs">{k}</span>
-                <span className="text-white text-xs font-medium">{v}</span>
+            ].map(([k, v], idx, arr) => (
+              <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: idx !== arr.length - 1 ? "1px solid rgba(255, 255, 255, 0.05)" : "none", paddingBottom: idx !== arr.length - 1 ? "12px" : "0" }}>
+                <span style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px" }}>{k}</span>
+                <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500 }}>{v}</span>
               </div>
             ))}
           </div>
-          <div className="w-full">
+
+          <div style={{ width: "100%" }}>
             <PrimaryButton label="Start New Journey" onClick={onDone} variant="navy" />
           </div>
         </div>
       ) : (
         /* Private vehicle — AI verified screen */
-        <div className="flex flex-col flex-1 px-6 pt-8 pb-10 items-center justify-center gap-6">
-          <div className="w-24 h-24 rounded-full bg-[#16a34a]/20 border-2 border-[#16a34a]/50 flex items-center justify-center text-5xl">
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0, padding: "24px", alignItems: "center", justifyContent: "center", gap: "18px", overflowY: "auto" }}>
+          <div style={{ width: "88px", height: "88px", borderRadius: "50%", backgroundColor: "rgba(22, 163, 74, 0.2)", border: "2px solid rgba(22, 163, 74, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px" }}>
             ✅
           </div>
-          <div className="text-center">
-            <h2 className="text-white font-bold text-2xl mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>Journey Complete</h2>
-            <p className="text-white/50 text-sm leading-relaxed">Your emergency file has been verified by AI and accepted. Your journey record has been saved successfully.</p>
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "22px", marginBottom: "6px", fontFamily: "Rajdhani, sans-serif" }}>Journey Complete</h2>
+            <p style={{ color: "rgba(255, 255, 255, 0.5)", fontSize: "12px", lineHeight: "1.5" }}>Your emergency file has been verified by AI and accepted. Your journey record has been saved successfully.</p>
           </div>
-          <div className="w-full bg-[#16a34a]/10 border border-[#16a34a]/30 rounded-2xl p-5">
+
+          <div style={{ width: "100%", backgroundColor: "rgba(22, 163, 74, 0.1)", border: "1px solid rgba(22, 163, 74, 0.3)", borderRadius: "16px", padding: "16px" }}>
             {[
               ["Journey ID", "APJ-" + Math.floor(Math.random() * 900000 + 100000)],
               ["Status", "Verified ✓"],
               ["File Authenticity", "Genuine (AI Confirmed)"],
               ["Compliance", "Fully Compliant"],
-            ].map(([k, v]) => (
-              <div key={k} className="flex justify-between py-2 border-b border-white/5 last:border-0">
-                <span className="text-white/40 text-xs">{k}</span>
-                <span className="text-white text-xs font-medium">{v}</span>
+            ].map(([k, v], idx, arr) => (
+              <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: idx !== arr.length - 1 ? "1px solid rgba(255, 255, 255, 0.05)" : "none" }}>
+                <span style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "11px" }}>{k}</span>
+                <span style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500 }}>{v}</span>
               </div>
             ))}
           </div>
-          <div className="w-full mt-4">
+
+          <div style={{ width: "100%", marginTop: "8px" }}>
             <PrimaryButton label="Start New Journey" onClick={onDone} variant="red" />
           </div>
         </div>
@@ -997,7 +1191,6 @@ function VerifiedScreen({ onDone, isAmbulance }: { onDone: () => void; isAmbulan
     </div>
   );
 }
-
 // ─── PROFILE SCREEN ─────────────────────────────────────────────────────────
 
 function ProfileScreen({ user, onLogout, onMap }: { user: UserData; onLogout: () => void; onMap: () => void }) {
@@ -1005,123 +1198,95 @@ function ProfileScreen({ user, onLogout, onMap }: { user: UserData; onLogout: ()
   const initials = user.name ? user.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() : "AP";
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0f2e] screen-slide-enter">
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", backgroundColor: "#0a0f2e", boxSizing: "border-box", overflow: "hidden" }}>
       <StatusBar />
-      <div className="flex flex-col flex-1 px-6 pt-4 pb-6 overflow-y-auto">
+      
+      <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: "8px 16px 12px 16px", overflowY: "auto", boxSizing: "border-box", gap: "10px" }}>
+        
         {/* Header */}
-        <div className="flex items-center gap-3 mb-8">
-          <button onClick={onMap} className="flex items-center gap-1.5 text-white/60 hover:text-white transition-colors">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-            <span className="text-xs font-medium">Map</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", flexShrink: 0 }}>
+          <button onClick={onMap} style={{ display: "flex", alignItems: "center", gap: "4px", backgroundColor: "rgba(13,21,69,0.9)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "4px 10px", color: "rgba(255,255,255,0.8)", cursor: "pointer" }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: "12px", height: "12px" }} strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
+            <span style={{ fontSize: "11px", fontWeight: 500 }}>Map</span>
           </button>
-          <div className="flex-1 flex justify-center">
+          
+          <div style={{ backgroundColor: "rgba(13,21,69,0.9)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px", padding: "4px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Logo size="sm" />
           </div>
-          <div className="w-12" />
+
+          <div style={{ width: "50px" }} />
         </div>
 
-        {/* Avatar */}
-        <div className="flex flex-col items-center gap-3 mb-8">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#dc2626] to-[#991b1b] flex items-center justify-center" style={{ boxShadow: "0 0 24px rgba(220,38,38,0.35)" }}>
-            <span className="text-white font-bold text-2xl" style={{ fontFamily: "Rajdhani, sans-serif" }}>{initials}</span>
+        {/* Avatar Mini */}
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "10px 14px", flexShrink: 0 }}>
+          <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "linear-gradient(135deg, #dc2626 0%, #991b1b 100%)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "14px", fontFamily: "Rajdhani, sans-serif" }}>{initials}</span>
           </div>
-          <div className="text-center">
-            <div className="text-white font-bold text-lg" style={{ fontFamily: "Rajdhani, sans-serif" }}>{user.name || "AbhayaPath User"}</div>
-            <div className="text-white/40 text-xs">{user.email || "—"}</div>
+          <div style={{ display: "flex", flexDirection: "column", minWidth: 0, flex: 1 }}>
+            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "14px", fontFamily: "Rajdhani, sans-serif", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user.name || "AbhayaPath User"}</div>
+            <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user.email || "—"}</div>
           </div>
         </div>
 
-        {/* Info cards */}
-        <div className="flex flex-col gap-3 mb-6">
-          <div className="text-white/30 text-xs uppercase tracking-widest font-medium mb-1">Account Details</div>
+        {/* Info list */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "9px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 500 }}>Details</div>
 
           {[
-            {
-              icon: "👤",
-              label: "Full Name",
-              value: user.name || "—",
-            },
-            {
-              icon: user.category === "ambulance" ? "🚑" : "🚗",
-              label: "Vehicle Category",
-              value: user.category === "ambulance"
-                ? "Ambulance / Hospital"
-                : user.category === "private"
-                  ? "Private Vehicle"
-                  : "—",
-              badge: user.category === "ambulance" ? "EMERGENCY" : user.category === "private" ? "PRIVATE" : null,
-              badgeColor: user.category === "ambulance" ? "text-[#dc2626] bg-[#dc2626]/10" : "text-[#1e3a8a] bg-[#1e3a8a]/20",
-            },
-            {
-              icon: "🔢",
-              label: "Vehicle Number",
-              value: user.vehicleNumber || "—",
-              mono: true,
-            },
-            {
-              icon: "📱",
-              label: "Mobile Number",
-              value: user.phone ? `+91-${user.phone}` : "—",
-            },
+            { label: "Name", value: user.name || "—" },
+            { label: "Category", value: user.category === "ambulance" ? "Ambulance" : "Private" },
+            { label: "Vehicle No", value: user.vehicleNumber || "—" },
+            { label: "Mobile", value: user.phone ? `+91-${user.phone}` : "—" },
           ].map(item => (
-            <div key={item.label} className="bg-[#1f2937] border border-white/5 rounded-2xl px-5 py-4 flex items-center gap-4">
-              <span className="text-xl w-7 text-center">{item.icon}</span>
-              <div className="flex-1 min-w-0">
-                <div className="text-white/40 text-[10px] uppercase tracking-widest mb-0.5">{item.label}</div>
-                <div className={`text-white text-sm font-medium truncate ${item.mono ? "tracking-widest font-mono" : ""}`}>
-                  {item.value}
-                </div>
-              </div>
-              {item.badge && (
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.badgeColor}`}>{item.badge}</span>
-              )}
+            <div key={item.label} style={{ backgroundColor: "#1f2937", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "8px", padding: "8px 12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", textTransform: "uppercase" }}>{item.label}</span>
+              <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 500 }}>{item.value}</span>
             </div>
           ))}
 
           {user.category === "ambulance" && user.hospitalName && (
-            <div className="bg-[#dc2626]/10 border border-[#dc2626]/20 rounded-2xl px-5 py-4 flex items-center gap-4">
-              <span className="text-xl w-7 text-center">🏥</span>
-              <div className="flex-1 min-w-0">
-                <div className="text-white/40 text-[10px] uppercase tracking-widest mb-0.5">Hospital</div>
-                <div className="text-white text-sm font-medium truncate">{user.hospitalName}</div>
-                {user.hospitalRefId && (
-                  <div className="text-white/40 text-xs font-mono mt-0.5">{user.hospitalRefId}</div>
-                )}
+            <div style={{ backgroundColor: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.2)", borderRadius: "10px", padding: "10px 12px", display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", textTransform: "uppercase" }}>Hospital / Status</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "5px", backgroundColor: "rgba(245,158,11,0.15)", padding: "2px 8px", borderRadius: "10px" }}>
+                  <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: "#f59e0b" }} />
+                  <span style={{ color: "#f59e0b", fontSize: "10px", fontWeight: 600 }}>Approval Pending</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-[#f59e0b]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#f59e0b] animate-pulse" />
-                <span className="text-[10px] font-semibold">Pending</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: 600 }}>{user.hospitalName}</span>
+                {user.hospitalRefId && (
+                  <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", fontFamily: "monospace" }}>{user.hospitalRefId}</span>
+                )}
               </div>
             </div>
           )}
         </div>
 
-        {/* Logout */}
+        {/* Logout Button */}
         {!showConfirm ? (
           <button
             onClick={() => setShowConfirm(true)}
-            className="w-full mt-auto border border-[#dc2626]/40 hover:border-[#dc2626] rounded-2xl py-4 flex items-center justify-center gap-2.5 text-[#dc2626] font-semibold text-sm transition-all active:scale-95"
-            style={{ fontFamily: "Rajdhani, sans-serif", fontSize: "1rem", letterSpacing: "0.04em" }}
+            style={{ width: "100%", marginTop: "auto", border: "1px solid rgba(220,38,38,0.4)", borderRadius: "10px", padding: "10px", display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", color: "#dc2626", fontWeight: 600, fontSize: "13px", backgroundColor: "transparent", cursor: "pointer", fontFamily: "Rajdhani, sans-serif", flexShrink: 0 }}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4" strokeLinecap="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: "12px", height: "12px" }} strokeLinecap="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
             </svg>
             Logout
           </button>
         ) : (
-          <div className="mt-auto bg-[#dc2626]/10 border border-[#dc2626]/30 rounded-2xl p-5 flex flex-col gap-3">
-            <p className="text-white text-sm font-medium text-center">Confirm logout?</p>
-            <p className="text-white/40 text-xs text-center">You will be redirected to the welcome screen.</p>
-            <div className="flex gap-3">
+          <div style={{ marginTop: "auto", backgroundColor: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)", borderRadius: "10px", padding: "10px", display: "flex", flexDirection: "column", gap: "6px", boxSizing: "border-box", flexShrink: 0 }}>
+            <p style={{ color: "#ffffff", fontSize: "11px", fontWeight: 500, textAlign: "center", margin: 0 }}>Confirm logout?</p>
+            <div style={{ display: "flex", gap: "6px" }}>
               <button
                 onClick={() => setShowConfirm(false)}
-                className="flex-1 bg-[#1f2937] rounded-xl py-3 text-white/60 text-sm font-medium hover:text-white transition-colors"
+                style={{ flex: 1, backgroundColor: "#1f2937", borderRadius: "6px", padding: "6px", color: "rgba(255,255,255,0.6)", fontSize: "11px", fontWeight: 500, border: "none", cursor: "pointer" }}
               >
                 Cancel
               </button>
               <button
                 onClick={onLogout}
-                className="flex-1 bg-[#dc2626] hover:bg-[#b91c1c] rounded-xl py-3 text-white text-sm font-semibold transition-colors"
+                style={{ flex: 1, backgroundColor: "#dc2626", borderRadius: "6px", padding: "6px", color: "#ffffff", fontSize: "11px", fontWeight: 600, border: "none", cursor: "pointer" }}
               >
                 Yes, Logout
               </button>
@@ -1132,33 +1297,39 @@ function ProfileScreen({ user, onLogout, onMap }: { user: UserData; onLogout: ()
     </div>
   );
 }
-
 // ─── BOTTOM NAV ─────────────────────────────────────────────────────────────
 
 function BottomNav({ active, onMap, onProfile }: { active: "map" | "profile"; onMap: () => void; onProfile: () => void }) {
   return (
-    <div className="absolute bottom-6 left-4 right-4 bg-[#1f2937]/95 backdrop-blur border border-white/10 rounded-2xl flex z-40" style={{ backdropFilter: "blur(16px)" }}>
+    <div style={{ position: "absolute", bottom: "24px", left: "16px", right: "16px", backgroundColor: "rgba(31, 41, 55, 0.95)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "16px", display: "flex", zIndex: 40, boxSizing: "border-box" }}>
+      
+      {/* Map / Navigate Button */}
       <button
         onClick={onMap}
-        className={`flex-1 flex flex-col items-center gap-1 py-3.5 rounded-l-2xl transition-all ${active === "map" ? "text-white" : "text-white/35"}`}
+        style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", padding: "14px 0", borderTopLeftRadius: "16px", borderBottomLeftRadius: "16px", backgroundColor: "transparent", border: "none", cursor: "pointer", color: active === "map" ? "#ffffff" : "rgba(255, 255, 255, 0.35)", transition: "all 0.2s" }}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active === "map" ? 2.5 : 1.5} className="w-5 h-5" strokeLinecap="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active === "map" ? 2.5 : 1.5} style={{ width: "20px", height: "20px" }} strokeLinecap="round">
           <path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7z" /><path d="M9 4v13M15 7v13" />
         </svg>
-        <span className="text-[10px] font-medium tracking-wide" style={{ fontFamily: "Poppins, sans-serif" }}>Navigate</span>
-        {active === "map" && <div className="w-1 h-1 rounded-full bg-[#dc2626]" />}
+        <span style={{ fontSize: "10px", fontWeight: 500, fontFamily: "Poppins, sans-serif", letterSpacing: "0.5px" }}>Navigate</span>
+        {active === "map" && <div style={{ width: "4px", height: "4px", borderRadius: "50%", backgroundColor: "#dc2626" }} />}
       </button>
-      <div className="w-px bg-white/10 my-3" />
+
+      {/* Divider */}
+      <div style={{ width: "1px", backgroundColor: "rgba(255, 255, 255, 0.1)", margin: "12px 0" }} />
+
+      {/* Profile Button */}
       <button
         onClick={onProfile}
-        className={`flex-1 flex flex-col items-center gap-1 py-3.5 rounded-r-2xl transition-all ${active === "profile" ? "text-white" : "text-white/35"}`}
+        style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", padding: "14px 0", borderTopRightRadius: "16px", borderBottomRightRadius: "16px", backgroundColor: "transparent", border: "none", cursor: "pointer", color: active === "profile" ? "#ffffff" : "rgba(255, 255, 255, 0.35)", transition: "all 0.2s" }}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active === "profile" ? 2.5 : 1.5} className="w-5 h-5" strokeLinecap="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active === "profile" ? 2.5 : 1.5} style={{ width: "20px", height: "20px" }} strokeLinecap="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
         </svg>
-        <span className="text-[10px] font-medium tracking-wide" style={{ fontFamily: "Poppins, sans-serif" }}>Profile</span>
-        {active === "profile" && <div className="w-1 h-1 rounded-full bg-[#dc2626]" />}
+        <span style={{ fontSize: "10px", fontWeight: 500, fontFamily: "Poppins, sans-serif", letterSpacing: "0.5px" }}>Profile</span>
+        {active === "profile" && <div style={{ width: "4px", height: "4px", borderRadius: "50%", backgroundColor: "#dc2626" }} />}
       </button>
+
     </div>
   );
 }
