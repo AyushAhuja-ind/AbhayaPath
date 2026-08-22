@@ -19,7 +19,7 @@ Emergency medical response time/Organ Donation service and Patient treatment on 
 
 ## APP BUILD
 - **App is being simaltaneously tested so that during competition there are minimum bugs in software**
-- **To maintain that app can be run on both devices i.e laptop/pc and mobile we are using VS CODE for testing of laptop and ChromeDevTools at(371*672) dimension for testing of phone working**
-- ⚠️**APP IS ONLY IN TESTING PHASE so representation in app might replicate or change but core functioning is same that we need to solve problem**
+- **To maintain that app can be run on both devices i.e laptop/pc and mobile we are using VS CODE for testing of laptop and ChromeDevTools at(390*844) dimension for testing of phone working**
+- ⚠️**APP IS ONLY IN TESTING PHASE so representation in app might have error or change but core functioning is same that we need to solve problem with some up down**
 
 
