@@ -360,7 +360,7 @@ function WelcomeScreen({ onSignup, onLogin }: { onSignup: () => void; onLogin: (
 
         {/* Footer Text */}
         <p style={{ color: "rgba(255, 255, 255, 0.4)", fontSize: "10px", textAlign: "center", margin: "10px 0 0 0", lineHeight: "1.3" }}>
-          Regulated by MoRTH · Government of India | IDEA BY SIET PANCHKULA(TECH SIRENS)
+          Regulated by MoRTH · Government of India | IDEA By Ayush Ahuja
         </p>
 
       </div>
